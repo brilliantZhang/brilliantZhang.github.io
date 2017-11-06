@@ -68,6 +68,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux学习（一）：编译和安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/06/linux学习（一）：编译和安装/" class="article-date">
+  <time datetime="2017-11-06T14:14:48.000Z" itemprop="datePublished">2017-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/06/linux学习（一）：编译和安装/">linux学习（一）：编译和安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>编译能将源代码翻译成机器语言，具有可用性和及时性。  </p>
+<p>编译大致为以下几步：</p>
+<blockquote>
+<ul>
+<li>获取源代码<br>源代码可通过ftp下载，也可以通过网页链接下载。源代码通常以tar包形式存在，可通过tar命令解压。  </li>
+<li><p>生成程序<br>在源代码目录输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ./configure</div><div class="line">$ make</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装程序<br>执行命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo make install</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>通常程序会安装在/usr/local/bin目录下。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="brilliantZhang.github.io/2017/11/06/linux学习（一）：编译和安装/" data-id="cj9ob5qme0000n8tcvgytuk3a" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-linux学习：前言" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/10/29/linux学习：前言/" class="article-date">
@@ -96,7 +148,7 @@
 <p> 学校内网有Linux镜像源，且内网WiFi覆盖范围广，速度也不错。我便在Ubuntu上改了源，具体操作如下：</p>
 <blockquote>
 <ul>
-<li>打开terminal,输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
+<li>打开terminal,输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
@@ -104,17 +156,17 @@
 <blockquote>
 <ul>
 <li>在最末尾添加:<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security main restricted<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security universe<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security multiverse<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates main restricted<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates universe<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates multiverse<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security </li>
-<li>保存后，在terminal输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+<li>保存后，在terminal输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div></pre></td></tr></table></figure>
 </li>
 </ul>
 </blockquote>
 <p>执行。</p>
-<p>这样，基本的准备工作便做好了，期待以后在网校的学习。</p>
+<p>这样，基本的准备工作便做好了，但部分软件源无法下载安装，暂时没有找到解决方法，以后有解决方案再更新文章。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cj9dut22z0001yktci70odim6" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cj9ob5qml0001n8tcgza86tyv" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -155,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cj9dut22x0000yktcevyvqr3x" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cj9ob5qmt0003n8tci03v2w4g" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/none/">none</a></li></ul>
