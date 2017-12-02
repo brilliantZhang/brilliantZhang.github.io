@@ -68,10 +68,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-wordpress配置" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-shell脚本备份" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/12/02/wordpress配置/" class="article-date">
-  <time datetime="2017-12-02T07:36:49.000Z" itemprop="datePublished">2017-12-02</time>
+    <a href="/2017/12/02/shell脚本备份/" class="article-date">
+  <time datetime="2017-12-02T14:55:28.000Z" itemprop="datePublished">2017-12-02</time>
 </a>
     
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/02/wordpress配置/">wordpress配置</a>
+      <a class="article-title" href="/2017/12/02/shell脚本备份/">ｓïshell脚本备份</a>
     </h1>
   
 
@@ -90,18 +90,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="安装-Apache2"><a href="#安装-Apache2" class="headerlink" title="安装 Apache2"></a>安装 Apache2</h1><p>在终端输入该命令 ，使用 apt-get 安装 Apache2：<br>sudo apt-get install apache2 -y　</p>
-<h1 id="安装PHP-组件"><a href="#安装PHP-组件" class="headerlink" title="安装PHP 组件"></a>安装PHP 组件</h1><p>sudo apt-get install php7.0 -y<br>sudo apt-get install libapache2-mod-php7.0</p>
-<h1 id="安装-MySQL-服务"><a href="#安装-MySQL-服务" class="headerlink" title="安装 MySQL 服务"></a>安装 MySQL 服务</h1><p>sudo apt-get install mysql-server -y<br>sudo apt-get install php7.0-mysql</p>
-<h1 id="安装-phpmyadmin"><a href="#安装-phpmyadmin" class="headerlink" title="安装 phpmyadmin"></a>安装 phpmyadmin</h1><p>sudo apt-get install phpmyadmin -y<br>sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin<br>sudo service mysql restart -y<br>sudo systemctl restart apache2.service</p>
-<h1 id="安装并配置-Wordpress"><a href="#安装并配置-Wordpress" class="headerlink" title="安装并配置 Wordpress"></a>安装并配置 Wordpress</h1><h2 id="安装-Wordpress"><a href="#安装-Wordpress" class="headerlink" title="安装 Wordpress"></a>安装 Wordpress</h2><p>wget <a href="https://cn.wordpress.org/wordpress-4.7.4-zh_CN.zip" target="_blank" rel="external">https://cn.wordpress.org/wordpress-4.7.4-zh_CN.zip</a><br>sudo unzip wordpress-4.7.4-zh_CN.zip</p>
-<h2 id="为-wordpress-配置一个数据库"><a href="#为-wordpress-配置一个数据库" class="headerlink" title="为 wordpress 配置一个数据库"></a>为 wordpress 配置一个数据库</h2><p>mysql -u root -p<br>CREATE DATABASE wordpress;<br>CREATE USER wordpressuser;<br>SET PASSWORD FOR wordpressuser= PASSWORD(“password123”);<br>GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser IDENTIFIED BY”password123”;<br>FLUSH PRIVILEGES;<br>exit;</p>
-<h2 id="配置-wordpress"><a href="#配置-wordpress" class="headerlink" title="配置 wordpress"></a>配置 wordpress</h2><p>sudo mv wordpress/* /var/www/html/<br>sudo chmod -R 777 /var/www/html/<br>sudo mv /var/www/html/index.html /var/www/html/index~.html<br>sudo systemctl restart apache2.service</p>
-<h1 id="测试访问"><a href="#测试访问" class="headerlink" title="测试访问"></a>测试访问</h1>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/12/02/wordpress配置/" data-id="cjap1kpj2000164tc8yyk7o1f" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/12/02/shell脚本备份/" data-id="cjapiyyis0002i4tclyqmm38i" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -134,7 +127,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在Debian系下，通常打包为deb包。可以用checkin stall，也可用dpkg-deb命令。</p>
-<h1 id="dpkg-deb"><a href="#dpkg-deb" class="headerlink" title="dpkg-deb"></a>dpkg-deb</h1><p> 在源代码目录新建一个DEBIAN目录，再新建一个control文本。编辑输入以下信息：</p>
+<h1 id="dpkg-deb"><a href="#dpkg-deb" class="headerlink" title="dpkg-deb"></a>dpkg-deb</h1><p> 在源代码目录新建一个DEBIAN目录，再新建一个control文本，位置一定要对，否则不能打包成功。编辑control文本，输入以下信息：</p>
 <pre><code class="vim">Package: 
 Version: 
 Section: 
@@ -154,7 +147,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/11/18/linux学习（二）：打包/" data-id="cjap1kpiw000064tc9ojfoxu2" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/11/18/linux学习（二）：打包/" data-id="cjapiyyik0000i4tclamkyosc" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -204,7 +197,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/11/06/linux学习（一）：编译和安装/" data-id="cjap1kpj9000364tc1f9amog7" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/11/06/linux学习（一）：编译和安装/" data-id="cjapiyyj40005i4tc9buyg7c9" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -262,7 +255,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cjap1kpu0000864tc39h2qkvs" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cjapiyyio0001i4tcypf8pmuj" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -303,7 +296,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cjap1kpj7000264tcgch07pqi" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cjapiyyj00004i4tc6dpya69u" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/none/">none</a></li></ul>
