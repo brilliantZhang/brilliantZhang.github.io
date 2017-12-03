@@ -70,8 +70,8 @@
   
     <article id="post-shell脚本备份" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/12/02/shell脚本备份/" class="article-date">
-  <time datetime="2017-12-02T14:55:28.000Z" itemprop="datePublished">2017-12-02</time>
+    <a href="/2017/12/03/shell脚本备份/" class="article-date">
+  <time datetime="2017-12-03T05:29:55.000Z" itemprop="datePublished">2017-12-03</time>
 </a>
     
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/02/shell脚本备份/">ｓïshell脚本备份</a>
+      <a class="article-title" href="/2017/12/03/shell脚本备份/">shell脚本备份</a>
     </h1>
   
 
@@ -90,11 +90,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>shell脚本还没开始学，只是从网上找了一份，功能是定时备份并删除旧备份．用的工具是mysql数据库．<br>终端输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /var/lib/mysqlbackup </div><div class="line"><span class="built_in">cd</span> /var/lib/mysqlbackup</div><div class="line">vi dbbackup.sh</div></pre></td></tr></table></figure></p>
+<p>编辑：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line"># mysql data backup script</div><div class="line">#</div><div class="line"># use mysqldump --help,get more detail.</div><div class="line">#</div><div class="line">BakDir=/root/back/ysqlbackup </div><div class="line">LogFile=/root/back/mysql/mysqlbak.log</div><div class="line">DATE=`date +%Y%m%d%H%M%S`</div><div class="line">echo " " &gt;&gt; $LogFile</div><div class="line">echo " " &gt;&gt; $LogFile</div><div class="line">echo "-------------------------------------------" &gt;&gt; $LogFile </div><div class="line">echo $(date +"%y-%m-%d %H:%M:%S") &gt;&gt; $LogFile </div><div class="line">echo "--------------------------" &gt;&gt; $LogFile </div><div class="line">cd $BakDir</div><div class="line">DumpFile=$DATE.sql</div><div class="line">GZDumpFile=$DATE.sql.tar.gz</div><div class="line">/usr/local/bin/mysqldump -u user -pname  --database -h 127.0.0.1 db&gt; $DumpFile</div><div class="line">echo "Dump Done" &gt;&gt; $LogFile</div><div class="line">tar czvf $GZDumpFile $DumpFile &gt;&gt; $LogFile 2&gt;&amp;1 </div><div class="line">echo "[$GZDumpFile]Backup Success!" &gt;&gt; $LogFile </div><div class="line">rm -f $DumpFile </div><div class="line">#cd $BakDir/daily</div><div class="line">cd $BakDir   </div><div class="line">echo "Backup Done!"</div><div class="line">echo "please Check $BakDir Directory!"</div><div class="line">echo "copy it to your local disk or ftp to somewhere !!!"</div><div class="line">find $BakDir -ctime +1 -exec rm &#123;&#125; ;</div><div class="line">echo "delete file over 1 days"</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod 777 mysqlautobackup.sh</div><div class="line">crontab –e</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> <span class="number">1</span> * * * /var/lib/mysqlbackup/mysqlautobackup.<span class="keyword">sh</span></div></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/12/02/shell脚本备份/" data-id="cjaqbstc80002hgtcva42lax8" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/12/03/shell脚本备份/" data-id="cjaqbwzue0005wctcze8ghwyl" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -132,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/12/02/wordpress配置/" data-id="cjaqbstc80004hgtc7jrk18jm" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/12/02/wordpress配置/" data-id="cjaqbwzue0003wctcjdv2vqr4" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -185,7 +188,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/11/18/linux学习（二）：打包/" data-id="cjaqbstbs0000hgtcuujn0lo6" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/11/18/linux学习（二）：打包/" data-id="cjaqbwzty0001wctc7nm4ii0g" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -235,7 +238,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/11/06/linux学习（一）：编译和安装/" data-id="cjaqbstbs0001hgtcvqq9nb6o" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/11/06/linux学习（一）：编译和安装/" data-id="cjaqbwzty0000wctcbbuya2e1" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -293,7 +296,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cjaqbstc80006hgtcnjw0ie99" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/29/linux学习：前言/" data-id="cjaqbwzue0004wctczk4pskaj" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -334,7 +337,7 @@ Description:
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cjaqbstc80005hgtcfioynoaz" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/10/26/开始/" data-id="cjaqbwzue0007wctcptv0knf9" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/none/">none</a></li></ul>
