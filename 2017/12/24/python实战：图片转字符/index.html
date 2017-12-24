@@ -5,22 +5,22 @@
   
   <title>python实战：图片转字符 | Welcome To My Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开发准备pillow库argparse库
-文件结构ascii.py和图片在同一目录下
-代码">
+  <meta name="description" content="#开发准备pillow库argparse库
+#文件结构ascii.py和图片在同一目录下
+#代码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python实战：图片转字符">
 <meta property="og:url" content="brilliantZhang.github.io/2017/12/24/python实战：图片转字符/index.html">
 <meta property="og:site_name" content="Welcome To My Blog">
-<meta property="og:description" content="开发准备pillow库argparse库
-文件结构ascii.py和图片在同一目录下
-代码">
-<meta property="og:updated_time" content="2017-12-24T08:28:45.768Z">
+<meta property="og:description" content="#开发准备pillow库argparse库
+#文件结构ascii.py和图片在同一目录下
+#代码">
+<meta property="og:updated_time" content="2017-12-24T08:35:02.628Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python实战：图片转字符">
-<meta name="twitter:description" content="开发准备pillow库argparse库
-文件结构ascii.py和图片在同一目录下
-代码">
+<meta name="twitter:description" content="#开发准备pillow库argparse库
+#文件结构ascii.py和图片在同一目录下
+#代码">
   
   
     <link rel="icon" href="[object Object]">
@@ -95,19 +95,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<ul>
-<li>开发准备<br>pillow库<br>argparse库</li>
-<li>文件结构<br>ascii.py和图片在同一目录下</li>
-<li>代码</li>
-</ul>
-</blockquote>
+        <p>#开发准备<br>pillow库<br>argparse库</p>
+<p>#文件结构<br>ascii.py和图片在同一目录下</p>
+<p>#代码</p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"><span class="keyword">import</span> argparse</div><div class="line"></div><div class="line"><span class="comment">#命令行输入参数处理</span></div><div class="line">parser = argparse.ArgumentParser()</div><div class="line"></div><div class="line">parser.add_argument(<span class="string">'file'</span>)     <span class="comment">#输入文件</span></div><div class="line">parser.add_argument(<span class="string">'-o'</span>, <span class="string">'--output'</span>)   <span class="comment">#输出文件</span></div><div class="line">parser.add_argument(<span class="string">'--width'</span>, type = int, default = <span class="number">80</span>) <span class="comment">#输出字符画宽</span></div><div class="line">parser.add_argument(<span class="string">'--height'</span>, type = int, default = <span class="number">80</span>) <span class="comment">#输出字符画高</span></div><div class="line"></div><div class="line"><span class="comment">#获取参数</span></div><div class="line">args = parser.parse_args()</div><div class="line"></div><div class="line">IMG = args.file</div><div class="line">WIDTH = args.width</div><div class="line">HEIGHT = args.height</div><div class="line">OUTPUT = args.output</div><div class="line"></div><div class="line">ascii_char = list(<span class="string">"$@B%8&amp;WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1&#123;&#125;[]?-_+~&lt;&gt;i!lI;:,\"^`'. "</span>)</div><div class="line"></div><div class="line"><span class="comment"># 将256灰度映射到70个字符上</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_char</span><span class="params">(r,g,b,alpha = <span class="number">256</span>)</span>:</span></div><div class="line">    <span class="keyword">if</span> alpha == <span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="string">' '</span></div><div class="line">    length = len(ascii_char)</div><div class="line">    gray = int(<span class="number">0.2126</span> * r + <span class="number">0.7152</span> * g + <span class="number">0.0722</span> * b)</div><div class="line"></div><div class="line">    unit = (<span class="number">256.0</span> + <span class="number">1</span>)/length</div><div class="line">    <span class="keyword">return</span> ascii_char[int(gray/unit)]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line"></div><div class="line">    im = Image.open(IMG)</div><div class="line">    im = im.resize((WIDTH,HEIGHT), Image.NEAREST)</div><div class="line"></div><div class="line">    txt = <span class="string">""</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(HEIGHT):</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(WIDTH):</div><div class="line">            txt += get_char(*im.getpixel((j,i)))</div><div class="line">        txt += <span class="string">'\n'</span></div></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="brilliantZhang.github.io/2017/12/24/python实战：图片转字符/" data-id="cjbkil35100040gtcv8cbisui" class="article-share-link">Partager</a>
+      <a data-url="brilliantZhang.github.io/2017/12/24/python实战：图片转字符/" data-id="cjbkirikb0001hotc7iendi54" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
