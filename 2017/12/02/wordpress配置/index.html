@@ -81,6 +81,11 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?MKetZV3cUTfDxvMffaOezg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
 
     
 
@@ -239,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sat Dec 02 2017 15:36:49 GMT+0800">
-        <meta property="article:modified_time" content="Mon Dec 25 2017 09:02:54 GMT+0800">
+        <meta property="article:modified_time" content="Mon Dec 25 2017 18:13:33 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -262,7 +267,7 @@
     "mainEntityOfPage": "brilliantZhang.github.io/2017/12/02/wordpress配置/index.html",
     "headline": "wordpress配置",
     "datePublished": "Sat Dec 02 2017 15:36:49 GMT+0800",
-    "dateModified": "Mon Dec 25 2017 09:02:54 GMT+0800",
+    "dateModified": "Mon Dec 25 2017 18:13:33 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -490,15 +495,15 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>这周的任务是搭建wordpress博客，之前也考虑过用wordpress,但感觉配置起来要比hexo+github pages要麻烦些，就没有尝试．</p>
-<h1 id="LAMP环境部署"><a href="#LAMP环境部署" class="headerlink" title="LAMP环境部署"></a>LAMP环境部署</h1><p>Linux Apache Mysql PHP<br>PHP：超文本预处理器 是一种开源的通用计算机脚本语言<br>Apache： Web服务器,负责处理请求，并将对PHP的请求转发给PHP执行。还有另一种web服务器叫Nginx.</p>
-<h2 id="安装-Apache2"><a href="#安装-Apache2" class="headerlink" title="安装 Apache2"></a>安装 Apache2</h2><p>在终端输入该命令 ，使用 apt-get 安装 Apache2：<br>sudo apt-get install apache2 -y　</p>
-<h2 id="安装PHP-组件"><a href="#安装PHP-组件" class="headerlink" title="安装PHP 组件"></a>安装PHP 组件</h2><p>sudo apt-get install php7.0 -y<br>sudo apt-get install libapache2-mod-php7.0</p>
-<h2 id="安装-MySQL-服务"><a href="#安装-MySQL-服务" class="headerlink" title="安装 MySQL 服务"></a>安装 MySQL 服务</h2><p>sudo apt-get install mysql-server -y<br>sudo apt-get install php7.0-mysql</p>
-<h1 id="安装-phpmyadmin"><a href="#安装-phpmyadmin" class="headerlink" title="安装 phpmyadmin"></a>安装 phpmyadmin</h1><p>sudo apt-get install phpmyadmin -y<br>sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin<br>sudo service mysql restart -y<br>sudo systemctl restart apache2.service</p>
-<h1 id="安装并配置-Wordpress"><a href="#安装并配置-Wordpress" class="headerlink" title="安装并配置 Wordpress"></a>安装并配置 Wordpress</h1><h2 id="安装-Wordpress"><a href="#安装-Wordpress" class="headerlink" title="安装 Wordpress"></a>安装 Wordpress</h2><p>wget <a href="https://cn.wordpress.org/wordpress-4.7.4-zh_CN.zip" target="_blank" rel="external">https://cn.wordpress.org/wordpress-4.7.4-zh_CN.zip</a><br>sudo unzip wordpress-4.7.4-zh_CN.zip</p>
-<h2 id="为-wordpress-配置一个数据库"><a href="#为-wordpress-配置一个数据库" class="headerlink" title="为 wordpress 配置一个数据库"></a>为 wordpress 配置一个数据库</h2><p>mysql -u root -p<br>CREATE DATABASE wordpress;<br>CREATE USER wordpressuser;<br>SET PASSWORD FOR wordpressuser= PASSWORD(“password123”);<br>GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser IDENTIFIED BY”password123”;<br>FLUSH PRIVILEGES;<br>exit;</p>
-<h2 id="配置-wordpress"><a href="#配置-wordpress" class="headerlink" title="配置 wordpress"></a>配置 wordpress</h2><p>sudo mv wordpress/* /var/www/html/<br>sudo chmod -R 777 /var/www/html/<br>sudo mv /var/www/html/index.html /var/www/html/index~.html<br>sudo systemctl restart apache2.service</p>
+        <p>这周的任务是搭建wordpress博客，之前也考虑过用wordpress,但感觉配置起来要比hexo+github pages要麻烦些，就没有尝试。</p>
+<h1 id="LAMP环境部署"><a href="#LAMP环境部署" class="headerlink" title="LAMP环境部署"></a>LAMP环境部署</h1><p>Linux Apache Mysql PHP<br>PHP：超文本预处理器 是一种开源的通用计算机脚本语言。<br>Apache：Web服务器,负责处理请求，并将对PHP的请求转发给PHP执行。还有另一种web服务器叫Nginx。<br>Mysql：关系型数据库，用来存储软件需要使用和产生的动态数据。</p>
+<h2 id="安装-Apache2"><a href="#安装-Apache2" class="headerlink" title="安装 Apache2"></a>安装 Apache2</h2><p>在终端输入该命令 ，使用 apt-get 安装 Apache2：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install apache2 -y</div></pre></td></tr></table></figure></p>
+<h2 id="安装PHP-组件"><a href="#安装PHP-组件" class="headerlink" title="安装PHP 组件"></a>安装PHP 组件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install php7.0 -y</div><div class="line">sudo apt-get install libapache2-mod-php7.0</div></pre></td></tr></table></figure>
+<h2 id="安装-MySQL-服务"><a href="#安装-MySQL-服务" class="headerlink" title="安装 MySQL 服务"></a>安装 MySQL 服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install mysql-server -y</div><div class="line">sudo apt-get install php7.0-mysql</div></pre></td></tr></table></figure>
+<h1 id="安装-phpmyadmin"><a href="#安装-phpmyadmin" class="headerlink" title="安装 phpmyadmin"></a>安装 phpmyadmin</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install phpmyadmin -y</div><div class="line">sudo ln <span class="_">-s</span> /usr/share/phpmyadmin /var/www/html/phpmyadmin</div><div class="line">sudo service mysql restart -y</div><div class="line">sudo systemctl restart apache2.service</div></pre></td></tr></table></figure>
+<h1 id="安装并配置-Wordpress"><a href="#安装并配置-Wordpress" class="headerlink" title="安装并配置 Wordpress"></a>安装并配置 Wordpress</h1><h2 id="安装-Wordpress"><a href="#安装-Wordpress" class="headerlink" title="安装 Wordpress"></a>安装 Wordpress</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget https://cn.wordpress.org/wordpress-4.7.4-zh_CN.zip</div><div class="line">sudo unzip wordpress-4.7.4-zh_CN.zip</div></pre></td></tr></table></figure>
+<h2 id="为-wordpress-配置一个数据库"><a href="#为-wordpress-配置一个数据库" class="headerlink" title="为 wordpress 配置一个数据库"></a>为 wordpress 配置一个数据库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div><div class="line">CREATE DATABASE wordpress;</div><div class="line">CREATE USER wordpressuser;</div><div class="line">SET PASSWORD FOR wordpressuser= PASSWORD(<span class="string">"password123"</span>);</div><div class="line">GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser IDENTIFIED BY<span class="string">"password123"</span>;</div><div class="line">FLUSH PRIVILEGES;</div><div class="line"><span class="built_in">exit</span>;</div></pre></td></tr></table></figure>
+<h2 id="配置-wordpress"><a href="#配置-wordpress" class="headerlink" title="配置 wordpress"></a>配置 wordpress</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo mv wordpress/* /var/www/html/</div><div class="line">sudo chmod -R 777 /var/www/html/</div><div class="line">sudo mv /var/www/html/index.html /var/www/html/index~.html</div><div class="line">sudo systemctl restart apache2.service</div></pre></td></tr></table></figure>
 <h1 id="测试访问"><a href="#测试访问" class="headerlink" title="测试访问"></a>测试访问</h1><p>访问服务器主机ip地址,可进行wordpress服务的安装．IP地址可在终端输入命令<br>ifconfig -a 获得．</p>
 
         
@@ -577,7 +582,7 @@
 
     <!-- Sidebar Email -->
     <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
-        youremail@email.com
+        zhangzhihui1999314@gmail.com
         <b class="caret"></b>
     </a>
 </div>
@@ -847,6 +852,12 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Import prettify js  -->
 
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
 
 
 <!-- Window Load -->
@@ -857,6 +868,13 @@ It will not impact the appearance and can give developers a lot of support :)
         $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
     });
 
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
     
     
 </script>
