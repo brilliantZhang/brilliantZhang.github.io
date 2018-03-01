@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sat Jan 27 2018 15:13:56 GMT+0800">
-        <meta property="article:modified_time" content="Sun Jan 28 2018 17:00:00 GMT+0800">
+        <meta property="article:modified_time" content="Thu Mar 01 2018 11:04:21 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html",
     "headline": "python实战：爬取教务在线学生照片",
     "datePublished": "Sat Jan 27 2018 15:13:56 GMT+0800",
-    "dateModified": "Sun Jan 28 2018 17:00:00 GMT+0800",
+    "dateModified": "Thu Mar 01 2018 11:04:21 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -486,7 +486,7 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>为了找一位学姐的名字，在教务在线翻看查找，终于找到学校所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。</p>
+        <p>无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。</p>
 <p>网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。</p>
 <p>具体代码如下：</p>
 <pre><code class="python"><span class="keyword">import</span> requests
@@ -509,9 +509,7 @@ header={<span class="string">"User-Agent"</span>:random.choice(UA)}
 r=requests.get(html,headers=header)
 soup=BeautifulSoup(r.content,<span class="string">'html.parser'</span>)
 tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="string">'pic'</span>)
-path=<span class="string">'photo'</span>
-os.makedirs(os.path.join(<span class="string">"C:\pachong"</span>,path))
-os.chdir(<span class="string">"C:\pachong\\"</span>+path)
+
 <span class="keyword">for</span> img <span class="keyword">in</span> tr_list:
     img_list=img.find_all(<span class="string">'img'</span>)
     <span class="keyword">for</span> url <span class="keyword">in</span> img_list:
@@ -530,7 +528,7 @@ os.chdir(<span class="string">"C:\pachong\\"</span>+path)
 <p>通过写这段爬虫代码，简单回顾了一下python的循环语句和抛出异常语句以及切片操作和文件操作。其中，切片操作有个坑，在切片结束位置处的元素不能取到，若要完整取到最末尾元素，则要缺省该值。</p>
 <p>大致思路是用requests库get方法获取html信息，再用BeautifulSoup库find_all方法匹配标签内容或其属性值，再通过文件操作写入。</p>
 <p>但当我想尝试修改代码将学校所有学生的照片爬取下来时，学校网站的反爬虫机制就开始起作用了，直接中断了我发起的请求，此时低级爬虫不奏效了。</p>
-<p>高级爬虫通过降低速度，更换IP代理和随机模拟浏览器应该可以避开这些机制。</p>
+<p>高级爬虫通过降低速度，使用IP代理池应该可以避开这些机制。</p>
 
         
     
