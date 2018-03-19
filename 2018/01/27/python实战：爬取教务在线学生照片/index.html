@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sat Jan 27 2018 15:13:56 GMT+0800">
-        <meta property="article:modified_time" content="Sun Mar 04 2018 23:27:08 GMT+0800">
+        <meta property="article:modified_time" content="Mon Mar 19 2018 23:13:13 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html",
     "headline": "python实战：爬取教务在线学生照片",
     "datePublished": "Sat Jan 27 2018 15:13:56 GMT+0800",
-    "dateModified": "Sun Mar 04 2018 23:27:08 GMT+0800",
+    "dateModified": "Mon Mar 19 2018 23:13:13 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -506,28 +506,55 @@ UA=[<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 
  <span class="string">"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5"</span>,
  <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/58.0"</span>]
 
-href=<span class="string">'班级号'</span>
-html=<span class="string">"http://jwzx.cqupt.edu.cn/jwzxtmp/showBjStu.php?bj="</span>+href
+href=<span class="string">''</span>
+ID=<span class="string">''</span>
+
 header={<span class="string">"User-Agent"</span>:random.choice(UA)}
-r=requests.get(html,headers=header)
-soup=BeautifulSoup(r.content,<span class="string">'html.parser'</span>)
-tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="string">'pic'</span>)
+print(<span class="string">"选择输入班级或学号:（1）学号（2）班级"</span>)
+choice=input()
+
+<span class="keyword">if</span> choice == <span class="string">'1'</span>:
+    print(<span class="string">"输入学号:"</span>)
+    ID=input()
+
+    htmlstudent=<span class="string">"http://jwzx.cqupt.edu.cn/showstuPic.php?xh="</span>+ID
+    html=htmlstudent
+    print(<span class="string">"正在爬取"</span>+ID+<span class="string">"的照片"</span>)
+    image=requests.get(html)
+    <span class="keyword">try</span>:
+        name=html[<span class="number">-10</span>:]
+        <span class="keyword">with</span> open (name+<span class="string">'.jpg'</span>,<span class="string">'ab'</span>)<span class="keyword">as</span> f:
+            f.write(image.content)
+            f.close()
+    <span class="keyword">except</span>:
+        <span class="keyword">pass</span>
+
+
+<span class="keyword">else</span>:
+    print(<span class="string">"输入班级:"</span>)
+    href=input()
+    htmlclass=<span class="string">"http://jwzx.cqupt.edu.cn/jwzxtmp/showBjStu.php?bj="</span>+href
+    html=htmlclass
+
+    r=requests.get(html,headers=header)
+    soup=BeautifulSoup(r.content,<span class="string">'html.parser'</span>)
+    tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="string">'pic'</span>)
 
 
 
-<span class="keyword">for</span> img <span class="keyword">in</span> tr_list:
-    img_list=img.find_all(<span class="string">'img'</span>)
-    <span class="keyword">for</span> url <span class="keyword">in</span> img_list:
-        <span class="keyword">try</span>:
-            src=url[<span class="string">'src'</span>]
-            print(<span class="string">"正在爬取学号为"</span>+src+<span class="string">"的照片"</span>)
-            image=requests.get(src)
-            name=src[<span class="number">-10</span>:]
-            <span class="keyword">with</span> open (name+<span class="string">'.jpg'</span>,<span class="string">'ab'</span>)<span class="keyword">as</span> f:
-                f.write(image.content)
-                f.close()
-        <span class="keyword">except</span>:
-            <span class="keyword">pass</span>
+    <span class="keyword">for</span> img <span class="keyword">in</span> tr_list:
+        img_list=img.find_all(<span class="string">'img'</span>)
+        <span class="keyword">for</span> url <span class="keyword">in</span> img_list:
+            <span class="keyword">try</span>:
+                src=url[<span class="string">'src'</span>]
+                image=requests.get(src)
+                name=src[<span class="number">-10</span>:]
+                print(<span class="string">"正在爬取"</span>+href+name+<span class="string">"的照片"</span>)
+                <span class="keyword">with</span> open (name+<span class="string">'.jpg'</span>,<span class="string">'ab'</span>)<span class="keyword">as</span> f:
+                    f.write(image.content)
+                    f.close()
+            <span class="keyword">except</span>:
+                <span class="keyword">pass</span>
 </code></pre>
 <p>通过写这段爬虫代码，简单回顾了一下python的循环语句和抛出异常语句以及切片操作和文件操作。其中，切片操作有个坑，在切片结束位置处的元素不能取到，若要完整取到最末尾元素，则要缺省该值。</p>
 <p>大致思路是用requests库get方法获取html信息，再用BeautifulSoup库find_all方法匹配标签内容或其属性值，再通过文件操作写入。</p>
@@ -552,6 +579,14 @@ tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="strin
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2018/03/19/MLCC笔记/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -651,7 +686,7 @@ tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="strin
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
