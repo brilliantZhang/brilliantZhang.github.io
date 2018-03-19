@@ -43,7 +43,7 @@
     
     <title>
         
-            python实战：爬取教务在线学生照片 | 
+            numpy笔记 | 
         
         My Blog
     </title>
@@ -54,7 +54,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="null,python">
+    <meta name="keywords" content="null,numpy">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -220,7 +220,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="My Blog">
-    <meta name="msapplication-starturl" content="brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/">
+    <meta name="msapplication-starturl" content="brilliantZhang.github.io/2018/03/15/numpy笔记/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="My Blog">
@@ -235,16 +235,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/">
+    <meta property="og:url" content="brilliantZhang.github.io/2018/03/15/numpy笔记/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="python实战：爬取教务在线学生照片 | My Blog">
+    <meta property="og:title" content="numpy笔记 | My Blog">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    <meta property="og:article:tag" content="python"> 
+    <meta property="og:article:tag" content="numpy"> 
 
     
-        <meta property="article:published_time" content="Sat Jan 27 2018 15:13:56 GMT+0800">
-        <meta property="article:modified_time" content="Mon Mar 19 2018 23:13:13 GMT+0800">
+        <meta property="article:published_time" content="Thu Mar 15 2018 23:20:46 GMT+0800">
+        <meta property="article:modified_time" content="Mon Mar 19 2018 23:23:07 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -252,7 +252,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html" />
+        <link rel="canonical" href="brilliantZhang.github.io/2018/03/15/numpy笔记/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -264,10 +264,10 @@
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "mainEntityOfPage": "brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html",
-    "headline": "python实战：爬取教务在线学生照片",
-    "datePublished": "Sat Jan 27 2018 15:13:56 GMT+0800",
-    "dateModified": "Mon Mar 19 2018 23:13:13 GMT+0800",
+    "mainEntityOfPage": "brilliantZhang.github.io/2018/03/15/numpy笔记/index.html",
+    "headline": "numpy笔记",
+    "datePublished": "Thu Mar 15 2018 23:20:46 GMT+0800",
+    "dateModified": "Mon Mar 19 2018 23:23:07 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -285,7 +285,7 @@
             "url": "/img/favicon.png"
         }
     },
-    "keywords": ",pythonnull",
+    "keywords": ",numpynull",
     "description": "",
 }
 </script>
@@ -345,6 +345,15 @@
     <!-- Left aligned menu below button -->
     
     
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Generate-some-random-data"><span class="post-toc-number">1.</span> <span class="post-toc-text">Generate some random data</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Greating-ndarrays"><span class="post-toc-number">2.</span> <span class="post-toc-text">Greating ndarrays</span></a></li></ol>
+    </ul>
+    
 
 
 
@@ -374,7 +383,7 @@
         
     
             <p class="article-headline-p">
-                python实战：爬取教务在线学生照片
+                numpy笔记
             </p>
         </div>
 
@@ -393,7 +402,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>brilliantZhang</strong>
-        <span>1月 27, 2018</span>
+        <span>3月 15, 2018</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -417,7 +426,7 @@
     </button>
     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
         <li class="mdl-menu__item">
-        <a class="post_tag-link" href="/tags/python/">python</a>
+        <a class="post_tag-link" href="/tags/numpy/">numpy</a>
     </ul>
     
 
@@ -434,7 +443,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=python实战：爬取教务在线学生照片&url=brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html&pic=brilliantZhang.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=numpy笔记&url=brilliantZhang.github.io/2018/03/15/numpy笔记/index.html&pic=brilliantZhang.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -443,7 +452,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=python实战：爬取教务在线学生照片&url=brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html&via=brilliantZhang" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=numpy笔记&url=brilliantZhang.github.io/2018/03/15/numpy笔记/index.html&via=brilliantZhang" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -452,7 +461,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=brilliantZhang.github.io/2018/03/15/numpy笔记/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -461,7 +470,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=brilliantZhang.github.io/2018/03/15/numpy笔记/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -486,80 +495,10 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。</p>
-<p>网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。</p>
-<p>具体代码如下：</p>
-<pre><code class="python"><span class="keyword">import</span> requests
-<span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup
-<span class="keyword">import</span> os
-<span class="keyword">import</span> time
-<span class="keyword">import</span> random
-<span class="keyword">import</span> re
-
-
-
-UA=[<span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"</span>,
- <span class="string">"Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11"</span>,
- <span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6"</span>,
- <span class="string">"Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6"</span>,
- <span class="string">"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/19.77.34.5 Safari/537.1"</span>,
- <span class="string">"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5"</span>,
- <span class="string">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/58.0"</span>]
-
-href=<span class="string">''</span>
-ID=<span class="string">''</span>
-
-header={<span class="string">"User-Agent"</span>:random.choice(UA)}
-print(<span class="string">"选择输入班级或学号:（1）学号（2）班级"</span>)
-choice=input()
-
-<span class="keyword">if</span> choice == <span class="string">'1'</span>:
-    print(<span class="string">"输入学号:"</span>)
-    ID=input()
-
-    htmlstudent=<span class="string">"http://jwzx.cqupt.edu.cn/showstuPic.php?xh="</span>+ID
-    html=htmlstudent
-    print(<span class="string">"正在爬取"</span>+ID+<span class="string">"的照片"</span>)
-    image=requests.get(html)
-    <span class="keyword">try</span>:
-        name=html[<span class="number">-10</span>:]
-        <span class="keyword">with</span> open (name+<span class="string">'.jpg'</span>,<span class="string">'ab'</span>)<span class="keyword">as</span> f:
-            f.write(image.content)
-            f.close()
-    <span class="keyword">except</span>:
-        <span class="keyword">pass</span>
-
-
-<span class="keyword">else</span>:
-    print(<span class="string">"输入班级:"</span>)
-    href=input()
-    htmlclass=<span class="string">"http://jwzx.cqupt.edu.cn/jwzxtmp/showBjStu.php?bj="</span>+href
-    html=htmlclass
-
-    r=requests.get(html,headers=header)
-    soup=BeautifulSoup(r.content,<span class="string">'html.parser'</span>)
-    tr_list=soup.find_all(<span class="string">'td'</span>,class_=<span class="string">'pic'</span>)
-
-
-
-    <span class="keyword">for</span> img <span class="keyword">in</span> tr_list:
-        img_list=img.find_all(<span class="string">'img'</span>)
-        <span class="keyword">for</span> url <span class="keyword">in</span> img_list:
-            <span class="keyword">try</span>:
-                src=url[<span class="string">'src'</span>]
-                image=requests.get(src)
-                name=src[<span class="number">-10</span>:]
-                print(<span class="string">"正在爬取"</span>+href+name+<span class="string">"的照片"</span>)
-                <span class="keyword">with</span> open (name+<span class="string">'.jpg'</span>,<span class="string">'ab'</span>)<span class="keyword">as</span> f:
-                    f.write(image.content)
-                    f.close()
-            <span class="keyword">except</span>:
-                <span class="keyword">pass</span>
-</code></pre>
-<p>通过写这段爬虫代码，简单回顾了一下python的循环语句和抛出异常语句以及切片操作和文件操作。其中，切片操作有个坑，在切片结束位置处的元素不能取到，若要完整取到最末尾元素，则要缺省该值。</p>
-<p>大致思路是用requests库get方法获取html信息，再用BeautifulSoup库find_all方法匹配标签内容或其属性值，再通过文件操作写入。</p>
-<p>但当我想尝试修改代码将学校所有学生的照片爬取下来时，学校网站的反爬虫机制就开始起作用了，直接中断了我发起的请求，此时低级爬虫不奏效了。</p>
-<p>高级爬虫通过降低速度，使用IP代理池应该可以避开这些机制。</p>
+        <p>在数值计算领域，说Numpy是python最重要的包也不为过。</p>
+<h2 id="Generate-some-random-data"><a href="#Generate-some-random-data" class="headerlink" title="Generate some random data"></a>Generate some random data</h2><p>data = np.random.randn(2, 3)</p>
+<p>每一个数组都有一个shape，来表示维度大小。而dtype，用来表示data type.</p>
+<h2 id="Greating-ndarrays"><a href="#Greating-ndarrays" class="headerlink" title="Greating ndarrays"></a>Greating ndarrays</h2><p>最简单的方法使用array函数，输入一个序列即可，嵌套序列能被转换为多维数组：<br>data1 = [6, 7.5, 8, 0, 1]<br>arr1 = np.array(data1)</p>
 
         
     
@@ -580,7 +519,7 @@ choice=input()
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2018/03/15/numpy笔记/" id="post_nav-newer" class="prev-content">
+        <a href="/2018/03/19/MLCC笔记/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -594,7 +533,7 @@ choice=input()
 
     <!-- Next Nav -->
     
-        <a href="/2017/12/24/python实战：图片转字符/" id="post_nav-older" class="next-content">
+        <a href="/2018/01/27/python实战：爬取教务在线学生照片/" id="post_nav-older" class="next-content">
             旧篇
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
