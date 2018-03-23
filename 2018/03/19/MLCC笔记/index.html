@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Mon Mar 19 2018 22:24:25 GMT+0800">
-        <meta property="article:modified_time" content="Mon Mar 19 2018 23:19:06 GMT+0800">
+        <meta property="article:modified_time" content="Thu Mar 22 2018 23:06:57 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "brilliantZhang.github.io/2018/03/19/MLCC笔记/index.html",
     "headline": "MLCC笔记",
     "datePublished": "Mon Mar 19 2018 22:24:25 GMT+0800",
-    "dateModified": "Mon Mar 19 2018 23:19:06 GMT+0800",
+    "dateModified": "Thu Mar 22 2018 23:06:57 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -344,6 +344,15 @@
 
     <!-- Left aligned menu below button -->
     
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#损失"><span class="post-toc-number">1.</span> <span class="post-toc-text">损失</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#梯度下降法"><span class="post-toc-number">2.</span> <span class="post-toc-text">梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#随机梯度下降法"><span class="post-toc-number">3.</span> <span class="post-toc-text">随机梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛化"><span class="post-toc-number">4.</span> <span class="post-toc-text">泛化</span></a></li></ol>
+    </ul>
     
 
 
@@ -486,9 +495,9 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>#损失<br>平方损失（又称为 L2 损失）<br>= the square of the difference between the label and the   prediction<br>= (observation - prediction(x))2<br>= (y - y’)2</p>
+        <h1 id="损失"><a href="#损失" class="headerlink" title="损失"></a>损失</h1><p>平方损失（又称为 L2 损失）<br>= the square of the difference between the label and the   prediction<br>= (observation - prediction(x))2<br>= (y - y’)2</p>
 <p>均方误差 (MSE) 指的是每个样本的平均平方损失。要计算 MSE，请求出各个样本的所有平方损失之和，然后除以样本数量。</p>
-<p>#梯度下降法<br>梯度下降法的第一个阶段是为权重值选择一个起始值（起点）。<br>然后，梯度下降法算法会计算损失曲线在起点处的梯度。简而言之，梯度是偏导数的矢量；它可以让您了解哪个方向距离目标“更近”或“更远”。损失相对于单个权重的梯度就等于导数。</p>
+<h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><p>梯度下降法算法用梯度乘以一个称为学习速率的标量，以确定下一个点的位置。梯度下降法的第一个阶段是为权重值选择一个起始值（起点）。<br>然后，梯度下降法算法会计算损失曲线在起点处的梯度。简而言之，梯度是偏导数的矢量；它可以让您了解哪个方向距离目标“更近”或“更远”。损失相对于单个权重的梯度就等于导数。</p>
 <p>梯度是一个矢量，因此具有以下两个特征：</p>
 <blockquote>
 <ul>
@@ -498,6 +507,10 @@
 </blockquote>
 <p>梯度始终指向损失函数中增长最为迅猛的方向。梯度下降法算法会沿着负梯度的方向走一步，以便尽快降低损失。为了确定损失函数曲线上的下一个点，梯度下降法算法会将梯度大小的一部分与起点相加。</p>
 <p>然后，梯度下降法会重复此过程，逐渐接近最低点。</p>
+<p>超参数是编程人员在机器学习算法中用于调整的旋钮。</p>
+<h1 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h1><p>在梯度下降法中，批量指的是用于在单次迭代中计算梯度的样本总数。批量大小越大，出现冗余的可能性就越高。</p>
+<p>随机梯度下降法 (SGD) 它每次迭代只使用一个样本（批量大小为 1）。如果进行足够的迭代，SGD 也可以发挥作用，但过程会非常杂乱。“随机”这一术语表示构成各个批量的一个样本都是随机选择的。</p>
+<h1 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h1><p>泛化是指模型很好地拟合以前未见过的新数据（从用于创建该模型的同一分布中抽取）的能力。</p>
 
         
     
@@ -517,6 +530,14 @@
             <!-- Post Prev & Next Nav -->
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
+    
+        <a href="/2018/03/23/python搭建3X1型神经网络/" id="post_nav-newer" class="prev-content">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_back</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            新篇
+        </a>
     
 
     <!-- Section Spacer -->
@@ -616,7 +637,7 @@
             </a>
             <ul class="dropdown-menu">
             <li>
-                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a>
+                <a class="sidebar_archives-link" href="/archives/2018/03/">三月 2018<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2018/01/">一月 2018<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/12/">十二月 2017<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/11/">十一月 2017<span class="sidebar_archives-count">2</span></a></li><li><a class="sidebar_archives-link" href="/archives/2017/10/">十月 2017<span class="sidebar_archives-count">2</span></a>
             </ul>
         </li>
         
