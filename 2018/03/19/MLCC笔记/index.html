@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Mon Mar 19 2018 22:24:25 GMT+0800">
-        <meta property="article:modified_time" content="Thu Mar 22 2018 23:06:57 GMT+0800">
+        <meta property="article:modified_time" content="Mon Apr 02 2018 23:27:21 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "brilliantZhang.github.io/2018/03/19/MLCC笔记/index.html",
     "headline": "MLCC笔记",
     "datePublished": "Mon Mar 19 2018 22:24:25 GMT+0800",
-    "dateModified": "Thu Mar 22 2018 23:06:57 GMT+0800",
+    "dateModified": "Mon Apr 02 2018 23:27:21 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "brilliantZhang",
@@ -351,7 +351,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#损失"><span class="post-toc-number">1.</span> <span class="post-toc-text">损失</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#梯度下降法"><span class="post-toc-number">2.</span> <span class="post-toc-text">梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#随机梯度下降法"><span class="post-toc-number">3.</span> <span class="post-toc-text">随机梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛化"><span class="post-toc-number">4.</span> <span class="post-toc-text">泛化</span></a></li></ol>
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#损失"><span class="post-toc-number">1.</span> <span class="post-toc-text">损失</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#梯度下降法"><span class="post-toc-number">2.</span> <span class="post-toc-text">梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#随机梯度下降法"><span class="post-toc-number">3.</span> <span class="post-toc-text">随机梯度下降法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#泛化"><span class="post-toc-number">4.</span> <span class="post-toc-text">泛化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#验证-Validation"><span class="post-toc-number">5.</span> <span class="post-toc-text">验证 (Validation)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#特征工程"><span class="post-toc-number">6.</span> <span class="post-toc-text">特征工程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#清理数据"><span class="post-toc-number">7.</span> <span class="post-toc-text">清理数据</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#L2正则化"><span class="post-toc-number">8.</span> <span class="post-toc-text">L2正则化</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#lambda"><span class="post-toc-number">9.</span> <span class="post-toc-text">lambda</span></a></li></ol>
     </ul>
     
 
@@ -511,6 +511,37 @@
 <h1 id="随机梯度下降法"><a href="#随机梯度下降法" class="headerlink" title="随机梯度下降法"></a>随机梯度下降法</h1><p>在梯度下降法中，批量指的是用于在单次迭代中计算梯度的样本总数。批量大小越大，出现冗余的可能性就越高。</p>
 <p>随机梯度下降法 (SGD) 它每次迭代只使用一个样本（批量大小为 1）。如果进行足够的迭代，SGD 也可以发挥作用，但过程会非常杂乱。“随机”这一术语表示构成各个批量的一个样本都是随机选择的。</p>
 <h1 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h1><p>泛化是指模型很好地拟合以前未见过的新数据（从用于创建该模型的同一分布中抽取）的能力。</p>
+<h1 id="验证-Validation"><a href="#验证-Validation" class="headerlink" title="验证 (Validation)"></a>验证 (Validation)</h1><p>将数据集划分为三个子集，可以大幅降低过拟合的发生几率。使用验证集评估训练集的效果。然后，在模型“通过”验证集之后，使用测试集再次检查评估结果。</p>
+<h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><blockquote>
+<ul>
+<li><p>避免很少使用的离散特征值<br>良好的特征值应该在数据集中出现大约 5 次以上</p>
+</li>
+<li><p>最好具有清晰明确的含义<br>每个特征对于项目中的任何人来说都应该具有清晰明确的含义</p>
+</li>
+<li><p>不要将“神奇”的值与实际数据混为一谈<br>良好的浮点特征不包含超出范围的异常断点或“神奇”的值</p>
+</li>
+<li><p>考虑上游不稳定性<br>特征的定义不应随时间发生变化</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="清理数据"><a href="#清理数据" class="headerlink" title="清理数据"></a>清理数据</h1><blockquote>
+<ul>
+<li>缩放特征值<br>缩放是指将浮点特征值从自然范围（例如 100 到 900）转换为标准范围（例如 0 到 1 或 -1 到 +1）。<br>如果特征集包含多个特征，则缩放特征可以带来以下优势：</li>
+</ul>
+</blockquote>
+<p>帮助梯度下降法更快速地收敛。<br>帮助避免“NaN 陷阱”。在这种陷阱中，模型中的一个数值变成 NaN（例如，当某个值在训练期间超出浮点精确率限制时），并且模型中的所有其他数值最终也会因数学运算而变成 NaN。<br>帮助模型为每个特征确定合适的权重。如果没有进行特征缩放，则模型会对范围较大的特征投入过多精力。</p>
+<blockquote>
+<ul>
+<li><p>处理极端离群值<br>对每个值取对数,或最大值“限制”为某个任意值</p>
+</li>
+<li><p>清查<br>遗漏值。 例如，有人忘记为某个房屋的年龄输入值。<br>重复样本。 例如，服务器错误地将同一条记录上传了两次。<br>不良标签。 例如，有人错误地将一颗橡树的图片标记为枫树。<br>不良特征值。 例如，有人输入了多余的位数，或者温度计被遗落在太阳底下。</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="L2正则化"><a href="#L2正则化" class="headerlink" title="L2正则化"></a>L2正则化</h1><p>根据奥卡姆剃刀定律，我们可以通过降低复杂模型的复杂度来防止过拟合，这种原则称为正则化。</p>
+<p>以最小化损失和复杂度为目标，这称为结构风险最小化。训练优化算法是一个由两项内容组成的函数：一个是损失项，用于衡量模型与数据的拟合度，另一个是正则化项，用于衡量模型复杂度。</p>
+<p>使用 L2 正则化公式来量化复杂度，该公式将正则化项定义为所有特征权重的平方和：L2 = ||OMEGA||^2</p>
+<h1 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h1><p>用正则化项的值乘以名为 lambda（又称为正则化率）的标量。增加 lambda值将增强正则化效果。<br>在选择 lambda 值时，目标是在简单化和训练数据拟合之间达到适当的平衡。</p>
 
         
     
