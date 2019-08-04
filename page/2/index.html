@@ -280,6 +280,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2017/11/06/linux学习：编译和安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/06/linux学习：编译和安装/" itemprop="url">
+                  linux学习：编译和安装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-06 22:14:48" itemprop="dateCreated datePublished" datetime="2017-11-06T22:14:48+08:00">2017-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-12-25 09:02:54" itemprop="dateModified" datetime="2017-12-25T09:02:54+08:00">2017-12-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          编译能将源代码翻译成
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/11/06/linux学习：编译和安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2017/10/29/linux学习：前言/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -378,28 +536,15 @@
       
         
           
-            <p> 偶然机会下接触到Linux，使用了一下就喜欢上了它的一些特性，诸如开源性以及强大的软件包管理系统。Linux的可玩性也较高，并且有很多不同的发行版本，我也尝试了debian,archlinux和ubuntu。</p>
-<p> 刚好在重邮有红岩网校这个平台提供运维方面知识的学习，运维又和Linux操作系统紧密联系，我便抓住这次机会系统地开始学习Linux。</p>
-<p> 初学Linux自然离不开虚拟机，我选择了同样开源的由Oracle公司出品的VirtualBox来配置和安装ubuntu。</p>
-<p> 学校内网有Linux镜像源，且内网WiFi覆盖范围广，速度也不错。我便在Ubuntu上改了源，具体操作如下：</p>
-<blockquote>
-<ul>
-<li>打开terminal,输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo gedit /etc/apt/sources.list</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p> 执行。 </p>
-<blockquote>
-<ul>
-<li>在最末尾添加:<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security main restricted<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security universe<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security multiverse<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates main restricted<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates universe<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-updates multiverse<br>deb <a href="http://mirror.cqupt.edu.cn/ubuntu/" target="_blank" rel="external">http://mirror.cqupt.edu.cn/ubuntu/</a> xenial-security </li>
-<li>保存后，在terminal输入:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get update</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p>执行。</p>
-<p>这样，基本的准备工作便做好了，但部分软件源无法下载安装，暂时没有找到解决方法，以后有解决方案再更新。</p>
-
-          
+           偶然机会下接触到L
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/29/linux学习：前言/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -549,11 +694,15 @@
       
         
           
-            <p>大学可能是我最后一次的系统学习的机会，所学的也是自己比较感兴趣的内容，所以想到搭建一个技术博客来记录这几年的学习历程和成长过程。 </p>
-<p>我选择在GitHub Pages上配合hexo搭建博客，也是费了一番周折。之所以选择在github上搭建，一是因为github pages可以免费且不受商业影响地使用，二来也让我对git/github的使用有大致的了解。毕竟，作为一个计算机人，迟早要学会使用github的。  </p>
-<p>最后，希望自己能坚持把这个博客写下去，让这个博客成为我一步步成长的见证。  </p>
-
-          
+          大学可能是我最后一次
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/26/开始/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -637,7 +786,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -704,7 +853,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
