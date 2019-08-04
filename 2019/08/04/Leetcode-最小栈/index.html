@@ -118,14 +118,14 @@
 <meta property="og:description" content="题目描述
 解题思路“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &amp;lt;= minstack[-1]，则将x压入辅助栈。当x &amp;gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值
 代码1234567891011121314151617181920212223">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode:最小栈/1.png">
-<meta property="og:updated_time" content="2019-08-04T03:21:19.518Z">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/1.PNG">
+<meta property="og:updated_time" content="2019-08-04T03:26:10.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode:最小栈">
 <meta name="twitter:description" content="题目描述
 解题思路“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &amp;lt;= minstack[-1]，则将x压入辅助栈。当x &amp;gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值
 代码1234567891011121314151617181920212223">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode:最小栈/1.png">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/1.PNG">
 
 
 
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-08-04 10:50:57 / 修改时间：11:21:19" itemprop="dateCreated datePublished" datetime="2019-08-04T10:50:57+08:00">2019-08-04</time>
+              <time title="创建时间：2019-08-04 10:50:57 / 修改时间：11:26:10" itemprop="dateCreated datePublished" datetime="2019-08-04T10:50:57+08:00">2019-08-04</time>
             
 
             
@@ -371,7 +371,7 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode:最小栈/1.png" alt=""></p>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/1.PNG" alt=""></p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &lt;= minstack[-1]，则将x压入辅助栈。当x &gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        initialize your data structure here.</div><div class="line">        """</div><div class="line">        self.stack=[]</div><div class="line">        self.minstack=[]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, x: int)</span> -&gt; <span class="keyword">None</span>:</span></div><div class="line">        self.stack.append(x)</div><div class="line">        <span class="keyword">if</span> len(self.minstack)==<span class="number">0</span>:</div><div class="line">            self.minstack.append(x)</div><div class="line">        <span class="keyword">elif</span> x&gt;self.minstack[<span class="number">-1</span>]:</div><div class="line">            self.minstack.append(self.minstack[<span class="number">-1</span>])</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.minstack.append(x)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span> -&gt; <span class="keyword">None</span>:</span></div><div class="line">        <span class="keyword">if</span> len(self.stack)==<span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        self.minstack.pop()</div><div class="line">        self.stack.pop()</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span> -&gt; int:</span></div><div class="line">        <span class="keyword">return</span> self.stack[<span class="number">-1</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getMin</span><span class="params">(self)</span> -&gt; int:</span></div><div class="line">        <span class="keyword">return</span> self.minstack[<span class="number">-1</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Your MinStack object will be instantiated and called as such:</span></div><div class="line"><span class="comment"># obj = MinStack()</span></div><div class="line"><span class="comment"># obj.push(x)</span></div><div class="line"><span class="comment"># obj.pop()</span></div><div class="line"><span class="comment"># param_3 = obj.top()</span></div><div class="line"><span class="comment"># param_4 = obj.getMin()</span></div></pre></td></tr></table></figure>
       
