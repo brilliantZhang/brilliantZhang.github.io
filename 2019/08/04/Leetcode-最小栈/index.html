@@ -108,47 +108,31 @@
 
 
 
-  <meta name="description" content="在Debian系下，通常打包为deb包。可以用checkinstall，也可用dpkg-deb命令。
-dpkg-deb 在源代码目录新建一个DEBIAN目录，再新建一个control文本，位置一定要对，否则不能打包成功。编辑control文本，输入以下信息：
-Package: 
-Version: 
-Section: 
-Priority:
-Depends:
-Suggests:
-Architectur">
+  <meta name="description" content="题目描述
+解题思路“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &amp;lt;= minstack[-1]，则将x压入辅助栈。当x &amp;gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值
+代码1234567891011121314151617181920212223">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux学习：打包">
-<meta property="og:url" content="brilliantZhang.github.io/2017/11/18/linux学习：打包/index.html">
+<meta property="og:title" content="Leetcode:最小栈">
+<meta property="og:url" content="brilliantZhang.github.io/2019/08/04/Leetcode-最小栈/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="在Debian系下，通常打包为deb包。可以用checkinstall，也可用dpkg-deb命令。
-dpkg-deb 在源代码目录新建一个DEBIAN目录，再新建一个control文本，位置一定要对，否则不能打包成功。编辑control文本，输入以下信息：
-Package: 
-Version: 
-Section: 
-Priority:
-Depends:
-Suggests:
-Architectur">
-<meta property="og:updated_time" content="2017-12-25T10:07:27.918Z">
+<meta property="og:description" content="题目描述
+解题思路“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &amp;lt;= minstack[-1]，则将x压入辅助栈。当x &amp;gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值
+代码1234567891011121314151617181920212223">
+<meta property="og:image" content="brilliantZhang.github.io/1.png">
+<meta property="og:updated_time" content="2019-08-04T03:08:25.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux学习：打包">
-<meta name="twitter:description" content="在Debian系下，通常打包为deb包。可以用checkinstall，也可用dpkg-deb命令。
-dpkg-deb 在源代码目录新建一个DEBIAN目录，再新建一个control文本，位置一定要对，否则不能打包成功。编辑control文本，输入以下信息：
-Package: 
-Version: 
-Section: 
-Priority:
-Depends:
-Suggests:
-Architectur">
+<meta name="twitter:title" content="Leetcode:最小栈">
+<meta name="twitter:description" content="题目描述
+解题思路“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &amp;lt;= minstack[-1]，则将x压入辅助栈。当x &amp;gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值
+代码1234567891011121314151617181920212223">
+<meta name="twitter:image" content="brilliantZhang.github.io/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2017/11/18/linux学习：打包/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/08/04/Leetcode-最小栈/"/>
 
 
 
@@ -158,7 +142,7 @@ Architectur">
   };
 </script>
 
-  <title>linux学习：打包 | My Blog</title>
+  <title>Leetcode:最小栈 | My Blog</title>
   
 
 
@@ -307,7 +291,7 @@ Architectur">
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2017/11/18/linux学习：打包/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/04/Leetcode-最小栈/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -324,7 +308,7 @@ Architectur">
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux学习：打包
+          <h1 class="post-title" itemprop="name headline">Leetcode:最小栈
               
             
           </h1>
@@ -349,24 +333,12 @@ Architectur">
                 
               
 
-              <time title="创建时间：2017-11-18 21:19:56" itemprop="dateCreated datePublished" datetime="2017-11-18T21:19:56+08:00">2017-11-18</time>
+              <time title="创建时间：2019-08-04 10:50:57 / 修改时间：11:08:25" itemprop="dateCreated datePublished" datetime="2019-08-04T10:50:57+08:00">2019-08-04</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2017-12-25 18:07:27" itemprop="dateModified" datetime="2017-12-25T18:07:27+08:00">2017-12-25</time>
               
             
           </span>
@@ -399,24 +371,9 @@ Architectur">
       
 
       
-        <p>在Debian系下，通常打包为deb包。可以用checkinstall，也可用dpkg-deb命令。</p>
-<h1 id="dpkg-deb"><a href="#dpkg-deb" class="headerlink" title="dpkg-deb"></a>dpkg-deb</h1><p> 在源代码目录新建一个DEBIAN目录，再新建一个control文本，位置一定要对，否则不能打包成功。编辑control文本，输入以下信息：</p>
-<pre><code class="vim">Package: 
-Version: 
-Section: 
-Priority:
-Depend<span class="variable">s:</span>
-Suggest<span class="variable">s:</span>
-Architecture: 
-Installed-Size: 
-Maintainer: 
-Provide<span class="variable">s:</span>
-Description:
-</code></pre>
-<p> 再执行命令:</p>
-<pre><code class="bash">$ sudo dpkg-deb -b dir packagename
-</code></pre>
-
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="1.png" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>“以空间换时间”，使用两个栈实现，一个存储所有数据，一个存当前栈的最小值，每次压栈都更新最小栈，当x &lt;= minstack[-1]，则将x压入辅助栈。当x &gt; minstack[-1]，则将minstack[-1]再次压入辅助栈。这样，保证了数据的同步，可以在O（1）时间内求得栈中最小值</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinStack</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        initialize your data structure here.</div><div class="line">        """</div><div class="line">        self.stack=[]</div><div class="line">        self.minstack=[]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, x: int)</span> -&gt; <span class="keyword">None</span>:</span></div><div class="line">        self.stack.append(x)</div><div class="line">        <span class="keyword">if</span> len(self.minstack)==<span class="number">0</span>:</div><div class="line">            self.minstack.append(x)</div><div class="line">        <span class="keyword">elif</span> x&gt;self.minstack[<span class="number">-1</span>]:</div><div class="line">            self.minstack.append(self.minstack[<span class="number">-1</span>])</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.minstack.append(x)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span> -&gt; <span class="keyword">None</span>:</span></div><div class="line">        <span class="keyword">if</span> len(self.stack)==<span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        self.minstack.pop()</div><div class="line">        self.stack.pop()</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(self)</span> -&gt; int:</span></div><div class="line">        <span class="keyword">return</span> self.stack[<span class="number">-1</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getMin</span><span class="params">(self)</span> -&gt; int:</span></div><div class="line">        <span class="keyword">return</span> self.minstack[<span class="number">-1</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Your MinStack object will be instantiated and called as such:</span></div><div class="line"><span class="comment"># obj = MinStack()</span></div><div class="line"><span class="comment"># obj.push(x)</span></div><div class="line"><span class="comment"># obj.pop()</span></div><div class="line"><span class="comment"># param_3 = obj.top()</span></div><div class="line"><span class="comment"># param_4 = obj.getMin()</span></div></pre></td></tr></table></figure>
       
     </div>
 
@@ -434,6 +391,12 @@ Description:
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode刷题/" rel="tag"># leetcode刷题</a>
+          
+        </div>
+      
 
       
       
@@ -443,8 +406,8 @@ Description:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/06/linux学习：编译和安装/" rel="next" title="linux学习：编译和安装">
-                <i class="fa fa-chevron-left"></i> linux学习：编译和安装
+              <a href="/2018/05/14/机器学习概念/" rel="next" title="机器学习概念理解及部分算法实现">
+                <i class="fa fa-chevron-left"></i> 机器学习概念理解及部分算法实现
               </a>
             
           </div>
@@ -453,8 +416,8 @@ Description:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/02/wordpress配置/" rel="prev" title="wordpress配置">
-                wordpress配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/04/Leetcode-有效的括号/" rel="prev" title="Leetcode:有效的括号">
+                Leetcode:有效的括号 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -590,7 +553,7 @@ Description:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dpkg-deb"><span class="nav-number">1.</span> <span class="nav-text">dpkg-deb</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
