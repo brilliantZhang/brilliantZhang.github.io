@@ -108,31 +108,49 @@
 
 
 
-  <meta name="description" content="无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。
-网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
+  <meta name="description" content="写个爬虫来爬取照片作为练手项目，采用python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
 具体代码如下：
 import requests
 from bs4 import BeautifulSoup
-imp">
+import os
+import time
+import random
+import re
+
+
+
+UA=[&quot;Mozilla/5.0 (Windo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python实战：爬取教务在线学生照片">
 <meta property="og:url" content="brilliantZhang.github.io/2018/01/27/python实战：爬取教务在线学生照片/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。
-网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
+<meta property="og:description" content="写个爬虫来爬取照片作为练手项目，采用python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
 具体代码如下：
 import requests
 from bs4 import BeautifulSoup
-imp">
-<meta property="og:updated_time" content="2018-03-19T15:13:13.328Z">
+import os
+import time
+import random
+import re
+
+
+
+UA=[&quot;Mozilla/5.0 (Windo">
+<meta property="og:updated_time" content="2019-08-04T02:20:41.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python实战：爬取教务在线学生照片">
-<meta name="twitter:description" content="无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。
-网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
+<meta name="twitter:description" content="写个爬虫来爬取照片作为练手项目，采用python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。
 具体代码如下：
 import requests
 from bs4 import BeautifulSoup
-imp">
+import os
+import time
+import random
+import re
+
+
+
+UA=[&quot;Mozilla/5.0 (Windo">
 
 
 
@@ -357,7 +375,7 @@ imp">
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-03-19 23:13:13" itemprop="dateModified" datetime="2018-03-19T23:13:13+08:00">2018-03-19</time>
+                <time title="修改时间：2019-08-04 10:20:41" itemprop="dateModified" datetime="2019-08-04T10:20:41+08:00">2019-08-04</time>
               
             
           </span>
@@ -390,8 +408,7 @@ imp">
       
 
       
-        <p>无意间在教务在线发现所有学生的名单及照片。进而想到可以写个爬虫来爬取照片作为练手项目。</p>
-<p>网站结构还算简单，很容易就找到信息分布规律。我采用较为初级的爬取办法，采用功能库齐全的python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。</p>
+        <p>写个爬虫来爬取照片作为练手项目，采用python语言实现，用requests库获取html内容和用BeautifulSoup4库匹配提取网页内容。</p>
 <p>具体代码如下：</p>
 <pre><code class="python"><span class="keyword">import</span> requests
 <span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup
@@ -462,8 +479,7 @@ choice=input()
 </code></pre>
 <p>通过写这段爬虫代码，简单回顾了一下python的循环语句和抛出异常语句以及切片操作和文件操作。其中，切片操作有个坑，在切片结束位置处的元素不能取到，若要完整取到最末尾元素，则要缺省该值。</p>
 <p>大致思路是用requests库get方法获取html信息，再用BeautifulSoup库find_all方法匹配标签内容或其属性值，再通过文件操作写入。</p>
-<p>但当我想尝试修改代码将学校所有学生的照片爬取下来时，学校网站的反爬虫机制就开始起作用了，直接中断了我发起的请求，此时低级爬虫不奏效了。</p>
-<p>高级爬虫通过降低速度，使用IP代理池应该可以避开这些机制。</p>
+<p>另外，可以使用通过降低速度，使用IP代理池应该可以避开反爬虫机制。</p>
 
       
     </div>
@@ -497,8 +513,8 @@ choice=input()
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/24/python实战：图片转字符/" rel="next" title="python实战：图片转字符">
-                <i class="fa fa-chevron-left"></i> python实战：图片转字符
+              <a href="/2017/12/03/shell脚本备份/" rel="next" title="shell脚本备份">
+                <i class="fa fa-chevron-left"></i> shell脚本备份
               </a>
             
           </div>
@@ -507,8 +523,8 @@ choice=input()
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/15/numpy笔记/" rel="prev" title="numpy笔记">
-                numpy笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/19/MLCC笔记/" rel="prev" title="MLCC笔记">
+                MLCC笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -574,7 +590,7 @@ choice=input()
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -597,11 +613,7 @@ choice=input()
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

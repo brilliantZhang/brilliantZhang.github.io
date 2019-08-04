@@ -108,19 +108,19 @@
 
 
 
-  <meta name="description" content="shell脚本还没开始学，只是从网上找了一份，功能是定时备份并删除旧备份．用的工具是mysql数据库．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
-编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data back">
+  <meta name="description" content="此shell脚本的功能是定时备份并删除旧备份．用的数据库是mysql．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
+编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data backup script## use">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shell脚本备份">
 <meta property="og:url" content="brilliantZhang.github.io/2017/12/03/shell脚本备份/index.html">
 <meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="shell脚本还没开始学，只是从网上找了一份，功能是定时备份并删除旧备份．用的工具是mysql数据库．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
-编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data back">
-<meta property="og:updated_time" content="2017-12-25T01:02:54.800Z">
+<meta property="og:description" content="此shell脚本的功能是定时备份并删除旧备份．用的数据库是mysql．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
+编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data backup script## use">
+<meta property="og:updated_time" content="2019-08-04T02:21:34.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shell脚本备份">
-<meta name="twitter:description" content="shell脚本还没开始学，只是从网上找了一份，功能是定时备份并删除旧备份．用的工具是mysql数据库．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
-编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data back">
+<meta name="twitter:description" content="此shell脚本的功能是定时备份并删除旧备份．用的数据库是mysql．终端输入：123mkdir /var/lib/mysqlbackup cd /var/lib/mysqlbackupvi dbbackup.sh
+编辑：12345678910111213141516171819202122232425262728#!/bin/sh# mysql data backup script## use">
 
 
 
@@ -345,7 +345,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2017-12-25 09:02:54" itemprop="dateModified" datetime="2017-12-25T09:02:54+08:00">2017-12-25</time>
+                <time title="修改时间：2019-08-04 10:21:34" itemprop="dateModified" datetime="2019-08-04T10:21:34+08:00">2019-08-04</time>
               
             
           </span>
@@ -378,7 +378,7 @@
       
 
       
-        <p>shell脚本还没开始学，只是从网上找了一份，功能是定时备份并删除旧备份．用的工具是mysql数据库．<br>终端输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /var/lib/mysqlbackup </div><div class="line"><span class="built_in">cd</span> /var/lib/mysqlbackup</div><div class="line">vi dbbackup.sh</div></pre></td></tr></table></figure></p>
+        <p>此shell脚本的功能是定时备份并删除旧备份．用的数据库是mysql．<br>终端输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir /var/lib/mysqlbackup </div><div class="line"><span class="built_in">cd</span> /var/lib/mysqlbackup</div><div class="line">vi dbbackup.sh</div></pre></td></tr></table></figure></p>
 <p>编辑：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line"># mysql data backup script</div><div class="line">#</div><div class="line"># use mysqldump --help,get more detail.</div><div class="line">#</div><div class="line">BakDir=/root/back/ysqlbackup </div><div class="line">LogFile=/root/back/mysql/mysqlbak.log</div><div class="line">DATE=`date +%Y%m%d%H%M%S`</div><div class="line">echo " " &gt;&gt; $LogFile</div><div class="line">echo " " &gt;&gt; $LogFile</div><div class="line">echo "-------------------------------------------" &gt;&gt; $LogFile </div><div class="line">echo $(date +"%y-%m-%d %H:%M:%S") &gt;&gt; $LogFile </div><div class="line">echo "--------------------------" &gt;&gt; $LogFile </div><div class="line">cd $BakDir</div><div class="line">DumpFile=$DATE.sql</div><div class="line">GZDumpFile=$DATE.sql.tar.gz</div><div class="line">/usr/local/bin/mysqldump -u user -pname  --database -h 127.0.0.1 db&gt; $DumpFile</div><div class="line">echo "Dump Done" &gt;&gt; $LogFile</div><div class="line">tar czvf $GZDumpFile $DumpFile &gt;&gt; $LogFile 2&gt;&amp;1 </div><div class="line">echo "[$GZDumpFile]Backup Success!" &gt;&gt; $LogFile </div><div class="line">rm -f $DumpFile </div><div class="line">#cd $BakDir/daily</div><div class="line">cd $BakDir   </div><div class="line">echo "Backup Done!"</div><div class="line">echo "please Check $BakDir Directory!"</div><div class="line">echo "copy it to your local disk or ftp to somewhere !!!"</div><div class="line">find $BakDir -ctime +1 -exec rm &#123;&#125; ;</div><div class="line">echo "delete file over 1 days"</div></pre></td></tr></table></figure></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod 777 mysqlautobackup.sh</div><div class="line">crontab –e</div></pre></td></tr></table></figure>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">0</span> <span class="number">1</span> * * * /var/lib/mysqlbackup/mysqlautobackup.<span class="keyword">sh</span></div></pre></td></tr></table></figure>
@@ -418,8 +418,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/24/python实战：图片转字符/" rel="prev" title="python实战：图片转字符">
-                python实战：图片转字符 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/27/python实战：爬取教务在线学生照片/" rel="prev" title="python实战：爬取教务在线学生照片">
+                python实战：爬取教务在线学生照片 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -485,7 +485,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -508,11 +508,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>

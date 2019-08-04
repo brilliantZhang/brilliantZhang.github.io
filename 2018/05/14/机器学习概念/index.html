@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="目录
+
+概念理解
+
+机器学习相关概念理解
+
+数据分析理解
+
+机器学习部分算法理解
+
+决策树
+
+KNN
+
+线性模型
+
+贝叶斯模型
+
+聚类
+
+集成学习
+
+SVM
+
+人工神经网络
+
+机器学习算法实现
+
+C4.5决策树
+
+
+
+  lenses数据集
+  balance-scale数据集
+
+
+KNN
+
+
+  hayes-roth数据集
+  glass数据集
+  yacht_hydrodynamics数据集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习概念理解及部分算法实现">
+<meta property="og:url" content="brilliantZhang.github.io/2018/05/14/机器学习概念/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="目录
+
+概念理解
+
+机器学习相关概念理解
+
+数据分析理解
+
+机器学习部分算法理解
+
+决策树
+
+KNN
+
+线性模型
+
+贝叶斯模型
+
+聚类
+
+集成学习
+
+SVM
+
+人工神经网络
+
+机器学习算法实现
+
+C4.5决策树
+
+
+
+  lenses数据集
+  balance-scale数据集
+
+
+KNN
+
+
+  hayes-roth数据集
+  glass数据集
+  yacht_hydrodynamics数据集">
+<meta property="og:image" content="brilliantZhang.github.io/media/32ea952cc410edb062dcca4a4d7c8dea.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/d3c66c5d7745bec9c66637ca06540d85.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/2d5ad2b1e2eeb9bf57d828d37f760d1c.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/6c646af53d3da1f86e8a36482e946eaf.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/c13d1909bfae846447aa51741392ad0f.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/2927639f5249ea9a96ad05f93828cb70.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/cabbd4aaa229f972560198a94ba09954.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/5e1171f3b3f20f393042ea7bbb7fbbbb.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/af87fc06e5edaf42fb2ae2521893d6ea.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/a43af325745fcb591e537c9ecc802482.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/5709baa92679d6ddb95a59503fa69802.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/b984957248f2e4fd08c6d1e6b79ea49f.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/f13fb2c60075ea1d3963c1ec712555bd.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/ca57157c0bd79573b2bdb0d1487beb34.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/181a91a74061467f816b96bac0e1ecee.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/498fc7804bb2c031d90d940611fe49be.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/aa424fc1175677b58f1470c9761c006d.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/448c69d7733f21ba193144240321c569.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/f6b5337aab4204a0abec195eb36c1c41.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/215091baad52508110b0d92c770634b9.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/093af314870ddc4c693c2e63f9450335.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/5f1bcc95d6db34612270662d7a0aadde.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/458ea8d930ab954d7bd5ad42294fef90.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/0fd5392e261b4d9ed8ec6d62dcb0e706.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/78f134cbe6967addecf34652843f7758.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/13edd6e336cb8db7d70ecbdc3097f1c2.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/72ed0486a5dc3c61e86a5cebaff0e8c2.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/ae00ad07ea6595f7e456e91d556b55f4.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/e9261aa939ae18c4510c59ef36f9c311.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/afc6f7b5210b87fd3e2b6aa634cc3df3.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/4b202c0137e907d69967e7d7ccc01505.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/4308f92c494870f12bad0757ba465013.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/d10323eebdc22e25d850b93563959344.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/9342457612eabfa4a680b87b3ee28f1b.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/466b41dee13ae65a2550befcee67dee0.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/544dbee7940f0cad85937c2ab16802aa.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/e695092c08eecb4ef21ee68ba380a0e3.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/a4a180d166de7dbdfe6a4a5a80a83fd6.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/7a5c6875e9e8902beefb38ff6f6a3f8f.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/08c38f9607a65743e6dd7a5d1da67bcc.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/7959ecef8f05b19d2818204e5e8f005f.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/542f715188ef7dd16fc4b34ab800ec0a.png">
+<meta property="og:image" content="brilliantZhang.github.io/media/1cf033beacfad43d110955a7dcbabc55.png">
+<meta property="og:updated_time" content="2019-08-04T02:35:50.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习概念理解及部分算法实现">
+<meta name="twitter:description" content="目录
+
+概念理解
+
+机器学习相关概念理解
+
+数据分析理解
+
+机器学习部分算法理解
+
+决策树
+
+KNN
+
+线性模型
+
+贝叶斯模型
+
+聚类
+
+集成学习
+
+SVM
+
+人工神经网络
+
+机器学习算法实现
+
+C4.5决策树
+
+
+
+  lenses数据集
+  balance-scale数据集
+
+
+KNN
+
+
+  hayes-roth数据集
+  glass数据集
+  yacht_hydrodynamics数据集">
+<meta name="twitter:image" content="brilliantZhang.github.io/media/32ea952cc410edb062dcca4a4d7c8dea.png">
+
+
+
+
+
+
+  <link rel="canonical" href="brilliantZhang.github.io/2018/05/14/机器学习概念/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>机器学习概念理解及部分算法实现 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">So we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2018/05/14/机器学习概念/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习概念理解及部分算法实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-14 15:36:49" itemprop="dateCreated datePublished" datetime="2018-05-14T15:36:49+08:00">2018-05-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-04 10:35:50" itemprop="dateModified" datetime="2019-08-04T10:35:50+08:00">2019-08-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<p>目录</p>
+<ol>
+<li><p>概念理解</p>
+</li>
+<li><p>机器学习相关概念理解</p>
+</li>
+<li><p>数据分析理解</p>
+</li>
+<li><p>机器学习部分算法理解</p>
+</li>
+<li><p>决策树</p>
+</li>
+<li><p>KNN</p>
+</li>
+<li><p>线性模型</p>
+</li>
+<li><p>贝叶斯模型</p>
+</li>
+<li><p>聚类</p>
+</li>
+<li><p>集成学习</p>
+</li>
+<li><p>SVM</p>
+</li>
+<li><p>人工神经网络</p>
+</li>
+<li><p>机器学习算法实现</p>
+</li>
+<li><p>C4.5决策树</p>
+</li>
+</ol>
+<blockquote>
+<p>  lenses数据集</p>
+<p>  balance-scale数据集</p>
+</blockquote>
+<ol>
+<li>KNN</li>
+</ol>
+<blockquote>
+<p>  hayes-roth数据集</p>
+<p>  glass数据集</p>
+<p>  yacht_hydrodynamics数据集</p>
+</blockquote>
+<ol>
+<li>K-means</li>
+</ol>
+<p>haberman数据集</p>
+<p>Iris数据集</p>
+<p>fertility_Diagnosis数据集</p>
+<ol>
+<li>总结</li>
+</ol>
+<blockquote>
+<p>  机器学习相关概念理解</p>
+</blockquote>
+<p>机器学习标准定义：假设用P来评估计算机程序在某任务类T上的性能，若一个程序通过利用经验E在T中任务上获得了性能改善，则我们就说关于T和P，该程序对E进行了学习</p>
+<p>理解：通过学习算法在数据中学习并产生模型，用此模型来解决回归和分类或聚类等问题</p>
+<p>基本概念理解</p>
+<ul>
+<li><p>数据集：一组描述事物特征的集合</p>
+</li>
+<li><p>样本：数据集的一个对象</p>
+</li>
+<li><p>属性值：描述事物特性的值</p>
+</li>
+<li><p>属性：表现事物在某方面特性的项</p>
+</li>
+<li><p>属性空间：在多维空间坐标系中，各维度的单个属性值组合对应着一个坐标位置</p>
+</li>
+<li><p>特征向量：属性空间中的点所对应的坐标向量</p>
+</li>
+<li><p>训练：从数据中学习获得模型的过程</p>
+</li>
+<li><p>训练样本：训练数据的样本</p>
+</li>
+<li><p>训练集：训练样本组成的集合</p>
+</li>
+<li><p>标记：训练样本的结果信息</p>
+</li>
+<li><p>样例：拥有结果标记信息的样本</p>
+</li>
+<li><p>标记空间：所有示例的标记集合</p>
+</li>
+<li><p>分类：用于预测离散值，如“好瓜”，“坏瓜”的学习任务</p>
+</li>
+<li><p>回归：用于预测连续值，如“西瓜成熟度”的学习任务</p>
+</li>
+<li><p>测试：用所得的模型进行预测的过程</p>
+</li>
+<li><p>测试样例：用来预测的样本</p>
+</li>
+<li><p>监督学习：训练数据有标记信息，如分类和回归任务，代表算法：KNN,SVM</p>
+</li>
+<li><p>无监督学习：训练数据集无标记信息，如聚类任务，代表算法：K-means</p>
+</li>
+<li><p>泛化能力：对于没在训练样本中出现的新样本，学得模型也能很好地反映出样本空间特性的能力</p>
+</li>
+<li><p>训练误差：学习器在训练集上的误差</p>
+</li>
+<li><p>泛化误差：学习器在新样本上的误差</p>
+</li>
+<li><p>过拟合：学习器过度学习，将训练样本的无关特性当作所有潜在样本的一般性质，导致泛化性能下降</p>
+</li>
+<li><p>欠拟合：学习器对训练样本的一般性质尚未学好</p>
+</li>
+<li><p>调参：大多数学习算法都有参数需要设定，在评估和选择模型时，需要对算法参数进行设定</p>
+</li>
+<li><p>验证集：将数据集划分为三个子集，可以大幅降低过拟合的发生几率。使用验证集评估训练集的效果。然后，在模型通过验证集之后，使用测试集再次检查评估结果，基于验证集来进行模型选择和调参</p>
+</li>
+<li><p>准确率：accurcy=(TP+TN)/(TP+FP+TN+FN)</p>
+</li>
+</ul>
+<blockquote>
+<p>  使用分类不平衡的数据集（比如正类别标签和负类别标签的数量之间存在明显差异）时，单单准确率一项并不能反映全面情况。</p>
+</blockquote>
+<ul>
+<li><p>精确率和召回率：精确率precision=TP/(TP+FP),在被识别为正类别的样本中，确实为正类别的比例是多少。召回率recall=TP/(TP+FN),在所有正类别样本中，被正确识别为正类别的比例是多少。精确率和召回率往往是此消彼长的情况</p>
+</li>
+<li><p>鲁棒性：学习系统在扰动或不确定情况下仍能保持他们的泛化能力</p>
+</li>
+</ul>
+<p>数据分析理解</p>
+<p>数据分析：在大量数据信息中发现和提炼出研究对象的内在规律，其步骤通常包括收集数据，准备数据，分析数据。数据分析常常结合机器学习算法用于智能推荐，广告的目标推送等</p>
+<p>机器学习算法理解</p>
+<ul>
+<li>决策树</li>
+</ul>
+<blockquote>
+<p>  理解：决策树用于处理分类问题，顾名思义是一个判断和决策的过程。决策树的特点是其计算复杂度不高，决策过程易于理解，<br>  是一个白盒模型</p>
+<p>  具体步骤：</p>
+<p>  检测数据集中的子项是否属于同一类别，若是返回类标签作为子节点</p>
+<p>  否则寻找划分数据集的最好特征，对于每个特征先后划分数据集并创建子节点</p>
+<p>  相关算法：</p>
+<p>  信息熵：对于训练集D的每个类别有 Ent(D)=sum(p*log(p,2))</p>
+<p>  信息增益：对于D中的每个属性a类别划分DV有Gain(D,a)=Ent(D)-sum(DV/D*Ent(Dv)</p>
+<p>  增益率：对于D中每个属性a有Gain_ratio(D,a)=Gain(D,a)/IV(a)</p>
+<p>  其中IV=-sum((Dv/D)*log(Dv/D,2)</p>
+</blockquote>
+<p>总结：ID3决策树根据信息增益划分数据集，信息增益高的特征为当前最优特征，C4.5决策树不直接选择增益率最高的特征进行划分，而是先从划分特征中选出信息增益高于平均水平的特征，再从中选择增益率最高的。通常还会采用剪枝的方法来防止出现过拟合</p>
+<ul>
+<li>KNN</li>
+</ul>
+<p>理解：KNN是“懒惰学习”的代表，即在训练阶段只把数据保存起来，在测试的时候再处理数据</p>
+<p>具体步骤：</p>
+<ol>
+<li><p>计算已知类别数据与当前数据的距离，按照距离递增次序排序</p>
+</li>
+<li><p>选取与当前点距离最小的的K个点，确定K个点所在类别的出现频率</p>
+</li>
+<li><p>返回出现频率最高的类别作为预测值</p>
+</li>
+</ol>
+<p>总结：K近邻通过计算样本距离的简单方法进行学习，通常采用归一化后的数据进行欧式距离计算，用距离衡量测试样本的类别</p>
+<ul>
+<li>线性模型</li>
+</ul>
+<p>理解：线性模型有形式简单，易于建模的特点，很多功能强大的非线性模型都基于线性模型，如人工神经网络模型，线性模型也有很强的可解释性</p>
+<p>常见的线性模型有线性回归和对数几率回归，通常用均方误差估计损失，即用最小二乘法求解模型</p>
+<p>总结：线性模型可用于处理分类和回归问题，但对于非线性的数据拟合效果没那么好，有一定的局限性</p>
+<ul>
+<li>贝叶斯模型</li>
+</ul>
+<p>理解：贝叶斯模型是基于统计学习方法的模型，即用概率论知识建模</p>
+<p>贝叶斯模型常用于解决分类问题，代表模型为朴素贝叶斯</p>
+<p>朴素贝叶斯使用条件概率建模，应用贝叶斯定理p(c|x)=p(x|c)*p(c)/p(x)</p>
+<p>进行决策分类，使用对数似然减少连乘带来的下溢</p>
+<p>总结：贝叶斯模型在数据量较小的情况下仍然有效，可以处理多分类问题</p>
+<ul>
+<li>聚类</li>
+</ul>
+<p>聚类是一种无监督学习模型，它通过学习数据信息，将一些相似的对象归为一个簇，聚类训练数据为无标签的数据，这也是聚类与分类最大的不同，代表算法为K-means</p>
+<p>聚类的步骤为：</p>
+<ol>
+<li><p>随机创建K个初始点作为簇心</p>
+</li>
+<li><p>对数据中的每个点，计算其与簇心的距离，将其分配到最近的簇</p>
+</li>
+<li><p>计算每一簇内所有点的均值，得到三个新簇心</p>
+</li>
+<li><p>当任意一个簇心分配结果改变时，重复上述步骤</p>
+</li>
+</ol>
+<p>总结：聚类容易实现，但在处理大规模数据时收敛较慢，用误差平方和评估效果</p>
+<ul>
+<li>集成学习</li>
+</ul>
+<p>理解：集成学习指结合多个学习器来构建学习器系统，可以是同类学习器的集成，也可以是不同种的学习器，如结合神经网络和决策树构建学习系统，学习差别越大，越有可能降低过拟合的风险。两种常见的集成方法是bagging和boosting</p>
+<ol>
+<li>bagging</li>
+</ol>
+<blockquote>
+<p>  通过对数据集随机有放回抽样得到训练集，即允许新抽取的样本种有与前面重复的样本，再分配多个学习器进行学习，最后通过学习器投票产生结果</p>
+</blockquote>
+<ol>
+<li>boosting</li>
+</ol>
+<blockquote>
+<p>  与bagging类似，但boosting是并行处理数据，，而且通过对错误率较高的学习器增大权重来提高整体性能，最后对每个学习器的预测加权求和得到结果。其代表算法为AdaBoost</p>
+</blockquote>
+<p>总结：集成学习模型能较好地解决过拟合问题，即使是集成简单的学习器也能获得不错的效果，在kaggle和天池的竞赛中取得好成绩也多为集成学习模型</p>
+<ul>
+<li>SVM</li>
+</ul>
+<p>理解：SVM常用于二分类问题，具有较好的稳定性，对噪声和异常点不敏感，训练成本低</p>
+<p>算法原理：对于线性可分的数据集，存在一个超平面<strong>omega</strong>.T*<strong>x</strong>+b=0</p>
+<p>将数据集分为两个类别。对于数据集中的样本，先分别找到两类别中距超平面最近的点，求解两点间的间距中的最优超平面使得两类别的数据样本距离超平面最大</p>
+<p>总结：SVM模型作为经典的机器学习模型，常常结合核方法以得到更复杂模型，通过修改还可以处理回归问题</p>
+<ul>
+<li>人工神经网络</li>
+</ul>
+<blockquote>
+<p>  理解：近年来，由于大数据的兴起和计算能力的提高，加上深度学习概念的提出，使得人工神经网络模型火热起来。人工神经网络是典型的黑盒模型，解释性不高，。代表算法有：bp神经网络，RBF神经网络，在计算机视觉方向，CNN,GAN应用广泛</p>
+</blockquote>
+<p>算法步骤：</p>
+<ol>
+<li><p>初始化网络权值，设定学习速率和最大迭代次数</p>
+</li>
+<li><p>输入训练样本，计算实际输出</p>
+</li>
+<li><p>根据各层误差更新各层网络权值</p>
+</li>
+</ol>
+<p>总结：神经网络模型采用误差反向传播算法调整随机初始化的权值，但隐含层节点如果过多，也容易陷入过拟合。通过增加参数和网络层数可以使其处理更为复杂的任务，但由于其“黑箱”特点，也有解释性不高的缺点</p>
+<blockquote>
+<p>  机器学习算法实现</p>
+</blockquote>
+<p>注：决策树大体框架参考了网络部分代码，算法细节为自主实现，KNN和K-means为自主实现，数据集来自UCI</p>
+<p>采用随机分割数据集的方法，使用sklearn现成的库方法，考虑到现有的方法代码实现已经很完善了，也没有必要自己再造个轮子，就直接调用sklearn库train_test_split方法，取每次评估结果的平均值</p>
+<ul>
+<li>决策树</li>
+</ul>
+<p>算法思路：根据特征的信息增益和信息增益率选择最佳特征，通过递归创建字典类型的树来获得决策树，对连续属性还需进行属性分割进行离散化</p>
+<p>代码：</p>
+<p><img src="/media/32ea952cc410edb062dcca4a4d7c8dea.png" alt=""></p>
+<p><img src="/media/d3c66c5d7745bec9c66637ca06540d85.png" alt=""></p>
+<p><img src="/media/2d5ad2b1e2eeb9bf57d828d37f760d1c.png" alt=""></p>
+<p><img src="/media/6c646af53d3da1f86e8a36482e946eaf.png" alt=""></p>
+<p><img src="/media/c13d1909bfae846447aa51741392ad0f.png" alt=""></p>
+<p><img src="/media/2927639f5249ea9a96ad05f93828cb70.png" alt=""></p>
+<p><img src="/media/cabbd4aaa229f972560198a94ba09954.png" alt=""></p>
+<p><img src="/media/5e1171f3b3f20f393042ea7bbb7fbbbb.png" alt=""></p>
+<p><img src="/media/af87fc06e5edaf42fb2ae2521893d6ea.png" alt=""></p>
+<p><img src="/media/a43af325745fcb591e537c9ecc802482.png" alt=""></p>
+<p><img src="/media/5709baa92679d6ddb95a59503fa69802.png" alt=""></p>
+<p>lenses数据集</p>
+<p><img src="/media/b984957248f2e4fd08c6d1e6b79ea49f.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/f13fb2c60075ea1d3963c1ec712555bd.png" alt=""></p>
+<p>分析：C4.5处理这种小规模的离散属性数据准确度还是挺高的</p>
+<p>balance-scale数据集</p>
+<p><img src="/media/ca57157c0bd79573b2bdb0d1487beb34.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/181a91a74061467f816b96bac0e1ecee.png" alt=""></p>
+<p>分析：稍大规模的五分类问题也表现得很好</p>
+<p>总结：决策树可以很方便地处理非数值型数据，但针对大规模的属性需要进行剪枝操作以防止过拟合，对连续属性也不方便处理，试了多个连续属性数据集也没能成功，目前还没能解决</p>
+<ul>
+<li>KNN</li>
+</ul>
+<blockquote>
+<p>  算法思路：没有训练过程，根据待测试样本最邻近的K个点的类别估计其类别，用欧式距离衡量临近程度</p>
+</blockquote>
+<p>代码：</p>
+<p><img src="/media/498fc7804bb2c031d90d940611fe49be.png" alt=""></p>
+<p><img src="/media/aa424fc1175677b58f1470c9761c006d.png" alt=""></p>
+<p><img src="/media/448c69d7733f21ba193144240321c569.png" alt=""></p>
+<p><img src="/media/f6b5337aab4204a0abec195eb36c1c41.png" alt=""></p>
+<p><img src="/media/215091baad52508110b0d92c770634b9.png" alt=""></p>
+<p><img src="/media/093af314870ddc4c693c2e63f9450335.png" alt=""></p>
+<p><img src="/media/5f1bcc95d6db34612270662d7a0aadde.png" alt=""></p>
+<p>yacht_hydrodynamics数据集</p>
+<p><img src="/media/458ea8d930ab954d7bd5ad42294fef90.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/0fd5392e261b4d9ed8ec6d62dcb0e706.png" alt=""></p>
+<p>分析：处理回归问题时，并不是很准确，有些预测值偏差很大，在多次检查了其最邻近的样本后，也没发现问题</p>
+<p>glass数据集</p>
+<p><img src="/media/78f134cbe6967addecf34652843f7758.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/13edd6e336cb8db7d70ecbdc3097f1c2.png" alt=""></p>
+<p>分析：处理多且连续的属性的六分类数据集时，准确度偏低，估计是特征对类别贡献程度不一样造成，有待进一步学习和研究关于特征选择和处理的问题</p>
+<p>hayes-roth数据集</p>
+<p><img src="/media/72ed0486a5dc3c61e86a5cebaff0e8c2.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/ae00ad07ea6595f7e456e91d556b55f4.png" alt=""></p>
+<p>分析：预测效果不理想，可以看出跟数据的不规整有关</p>
+<p>总结：KNN只是单纯地根据数据地接近程度来进行预测，对数据属性简单地进行归一化后，更降低了预测的可信度，需要对数据特征进行更为复杂的处理才能尽可能地保留数据的原始特征，不至于造成太大影响。K值选择也很关键，有待学习调参算法</p>
+<ul>
+<li>K-means</li>
+</ul>
+<p>算法思路：随机初始化K个数据集簇心，根据距离分配给簇，重新计算簇心，重复上述数据分配和重定向簇心操作，直至簇心不再改变或满足特定迭代次数后终止得到分配结果，根据不同的K值效果，决定K值。这里为了便于得到评估效果，用了有标签数据集，先遮挡数据标签进行训练，再与标签比对评估算法效果</p>
+<p>代码：</p>
+<p><img src="/media/e9261aa939ae18c4510c59ef36f9c311.png" alt=""></p>
+<p><img src="/media/afc6f7b5210b87fd3e2b6aa634cc3df3.png" alt=""></p>
+<p><img src="/media/4b202c0137e907d69967e7d7ccc01505.png" alt=""></p>
+<p><img src="/media/4308f92c494870f12bad0757ba465013.png" alt=""></p>
+<p><img src="/media/d10323eebdc22e25d850b93563959344.png" alt=""></p>
+<p><img src="/media/9342457612eabfa4a680b87b3ee28f1b.png" alt=""></p>
+<p><img src="/media/466b41dee13ae65a2550befcee67dee0.png" alt=""></p>
+<p><img src="/media/544dbee7940f0cad85937c2ab16802aa.png" alt=""></p>
+<p><img src="/media/e695092c08eecb4ef21ee68ba380a0e3.png" alt=""></p>
+<p>haberman数据集</p>
+<p><img src="/media/a4a180d166de7dbdfe6a4a5a80a83fd6.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/7a5c6875e9e8902beefb38ff6f6a3f8f.png" alt=""></p>
+<p>分析：用遮挡标签的形式进行学习获得的模型针对二分类数据集，聚类的预测准确度还挺高的</p>
+<p>Iris数据集</p>
+<p><img src="/media/08c38f9607a65743e6dd7a5d1da67bcc.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/7959ecef8f05b19d2818204e5e8f005f.png" alt=""></p>
+<p>总结：Iris数据集预测效果出奇地好，估计是因为数据集比较规整，每个特征贡献度相近，基本没有冗余</p>
+<p>fertility_Diagnosis数据集</p>
+<p><img src="/media/542f715188ef7dd16fc4b34ab800ec0a.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/media/1cf033beacfad43d110955a7dcbabc55.png" alt=""></p>
+<p>分析：有较多特征的数据集也表现良好</p>
+<p>总结：K-means的簇心个数K也很重要，需要用到调参算法，但也不能一味增加簇心数来降低训练误差，会导致划分的合理性降低，失去聚类的意义，确定好K值是K-means的关键</p>
+<p>总结</p>
+<p>在学习机器学习算法的过程中，让我了解到机器学习算法的强大和巧妙，有些算法虽然理解起来简单，但真正实现起来还是比较困难的，也发现了自己数据结构知识和python高级特性知识方面的欠缺。</p>
+<p>单单靠机器学习算法进行预测，而忽视数据处理的过程，就算学习算法再好，也不能获得令人满意的效果，如果能理解每个特征对类别的意义，进行特征选择和特征构造添加或者其他数据操作，往往能使预测准确度出现较大提升。</p>
+<p>另外，对学习算法中的每个参数进行调整，也是提升算法效果的关键，在后面阶段的sklearn库的学习中需要着重学习</p>
+<p>参考资料：《机器学习》，《机器学习实战》，《人工神经网络基础》</p>
+<p>维基百科相关词条</p>
+<p>数据来源： UCI</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/python搭建神经网络/" rel="next" title="numpy搭建神经网络">
+                <i class="fa fa-chevron-left"></i> numpy搭建神经网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">brilliantZhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brilliantZhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
