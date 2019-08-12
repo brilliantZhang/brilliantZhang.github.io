@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="XGB算法梳理
+算法原理GDBT在函数空间中利用梯度下降法进行优化而XGB在函数空间中使用了牛顿法进行优化。即GDBT在优化中使用了一阶导数信息,而XGB对损失函数进行了二阶泰勒展开,用到了一阶和二阶倒数信息。XGB在损失函数中加入了正则项(树叶子节点个数,每个叶子节点上输出score的L2模平方和。对于缺失的样本,XGB可以自动学习出它的分裂方向。GDBT的节点分裂方式使用的是gini系数,XG">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XGB算法梳理">
+<meta property="og:url" content="brilliantZhang.github.io/2019/08/12/XGB算法梳理/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="XGB算法梳理
+算法原理GDBT在函数空间中利用梯度下降法进行优化而XGB在函数空间中使用了牛顿法进行优化。即GDBT在优化中使用了一阶导数信息,而XGB对损失函数进行了二阶泰勒展开,用到了一阶和二阶倒数信息。XGB在损失函数中加入了正则项(树叶子节点个数,每个叶子节点上输出score的L2模平方和。对于缺失的样本,XGB可以自动学习出它的分裂方向。GDBT的节点分裂方式使用的是gini系数,XG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/22.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/23.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/24.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/25.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/26.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/27.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/28.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/29.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/30.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/31.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/32.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/33.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/34.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/35.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/36.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/37.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/38.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/39.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/40.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/41.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/42.PNG">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/43.PNG">
+<meta property="og:updated_time" content="2019-08-12T08:21:46.760Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XGB算法梳理">
+<meta name="twitter:description" content="XGB算法梳理
+算法原理GDBT在函数空间中利用梯度下降法进行优化而XGB在函数空间中使用了牛顿法进行优化。即GDBT在优化中使用了一阶导数信息,而XGB对损失函数进行了二阶泰勒展开,用到了一阶和二阶倒数信息。XGB在损失函数中加入了正则项(树叶子节点个数,每个叶子节点上输出score的L2模平方和。对于缺失的样本,XGB可以自动学习出它的分裂方向。GDBT的节点分裂方式使用的是gini系数,XG">
+<meta name="twitter:image" content="brilliantZhang.github.io/machine_learning/22.PNG">
+
+
+
+
+
+
+  <link rel="canonical" href="brilliantZhang.github.io/2019/08/12/XGB算法梳理/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>XGB算法梳理 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">So we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/12/XGB算法梳理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">XGB算法梳理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-12 15:48:16 / 修改时间：16:21:46" itemprop="dateCreated datePublished" datetime="2019-08-12T15:48:16+08:00">2019-08-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>XGB算法梳理</p>
+<h1 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h1><p>GDBT在函数空间中利用梯度下降法进行优化而XGB在函数空间中使用了牛顿法进行优化。即GDBT在优化中使用了一阶导数信息,而XGB对损失函数进行了二阶泰勒展开,用到了一阶和二阶倒数信息。XGB在损失函数中加入了正则项(树叶子节点个数,每个叶子节点上输出score的L2模平方和。对于缺失的样本,XGB可以自动学习出它的分裂方向。GDBT的节点分裂方式使用的是gini系数,XGB通过优化推导出分裂前后的增益来选择分裂节点。XGB在处理每个特征列时可以做到并行。</p>
+<p>XGBoost是一个树集成模型，它使用的是K（树的总数为K）个树的每棵树对样本的预测值的和作为该样本在XGBoost系统中的预测，定义函数如下：<br><img src="/machine_learning/22.PNG" alt=""><br>由（1）式可以看出，XGBoost的预测值为每棵树的预测值之和，即每棵树相应的叶节点的得分之和（Wi的和，Wi表示第i个叶节点的得分）。</p>
+<p>对于所给的数据集有n个样本，m个特征，定义为：<br><img src="/machine_learning/23.PNG" alt=""></p>
+<p>其中Xi表示第i个样本，yi表示第i个样本的类别标签。CART树的空间为F，如下：<br><img src="/machine_learning/24.PNG" alt=""><br>其中q表示每棵树的结构映射每个样本到相应的叶节点的分数，即q表示树的模型，输入一个样本，根据模型将样本映射到叶节点输出预测的分数；Wq(x)表示树q的所有叶节点的分数组成集合；T是树q的叶节点数量。</p>
+<p>我们的目标就是学习这样的K个树模型f(x)。为了学习模型f(x)，我们定义下面的目标函数：<br><img src="/machine_learning/25.PNG" alt=""><br>其中，（2）式右边第一项为损失函数项，即训练误差，是一个可微的凸函数（比如用于回归的均方误差和用于分类的Logistic误差函数等），第二项为正则化项，即每棵树的复杂度之和，目的是控制模型的复杂度，防止过拟合。我们的目标是在L(φ)取得最小化时得出对应的模型f(x)。</p>
+<p>由于XGBoost模型中的优化参数是模型f(x)，不是一个具体的值，所以不能用传统的优化方法在欧式空间中进行优化，而是采用additive training的方式去学习模型。每一次保留原来的模型不变，加入一个新的函数f到模型中，如下：<br><img src="/machine_learning/26.PNG" alt=""></p>
+<p>预测值在每一次迭代中加入一个新的函数f目的是使目标函数尽量最大地降低。因为我们的目标是最小化L(φ)时得到模型f(x)，但是L(φ)中并没有参数f(x)，所以，我们将上图中的最后一式代入L(φ)中可得到如下式子：<br><img src="/machine_learning/27.PNG" alt=""></p>
+<p>对于平方误差（用于回归）来说（3）式转换成如下形式：<br><img src="/machine_learning/28.PNG" alt=""></p>
+<p>对于不是平方误差的情况下，一般会采用泰勒展开式来定义一个近似的目标函数，以方便我们的进一步计算。根据如下的泰勒展开式，移除高阶无穷小项，得：<br><img src="/machine_learning/29.PNG" alt=""><br><img src="/machine_learning/30.PNG" alt=""></p>
+<p>3）式等价于下面的式子：<br><img src="/machine_learning/31.PNG" alt=""></p>
+<p>由于我们的目标是求L(φ)最小化时的模型f(x)（也是变量），当移除常数项时模型的最小值变化，但是取最小值的变量不变（比如：y=x^2+C，无论C去何值，x都在0处取最小值）。所以，为了简化计算，我们移除常数项，得到如下的目标函数：<br><img src="/machine_learning/32.PNG" alt=""></p>
+<p>定义 为叶节点j的实例，重写（4）式，将关于树模型的迭代转换为关于树的叶子节点的迭代，得到如下过程：<br><img src="/machine_learning/33.PNG" alt=""></p>
+<p>此时我们的目标是求每棵树的叶节点j的分数Wj，求出Wj后，将每棵树的Wj相加，即可得到最终的预测的分数。而要想得到最优的Wj的值，即最小化我们的目标函数，所以上式对Wj求偏导，并令偏导数为0，算出此时的Wj* 为：<br><img src="/machine_learning/34.PNG" alt=""><br><img src="/machine_learning/35.PNG" alt=""></p>
+<p>将Wj* 代入原式得：<br><img src="/machine_learning/36.PNG" alt=""><br>方程（5）可以用作得分(score)函数来测量树结构q的质量。该得分类似于评估决策树的不纯度得分，除了它是针对更广泛的目标函数得出的。</p>
+<h1 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h1><p>误差函数的二阶泰勒展开</p>
+<p>• 第t次迭代后，模型的预测等于前t-1次的模型预测加上第t棵树的预测：<br><img src="/machine_learning/37.PNG" alt=""><br>• 此时目标函数可写作：<br><img src="/machine_learning/38.PNG" alt=""><br>• 将误差函数在yi(t-1)处进行二阶泰勒展开：<br><img src="/machine_learning/39.PNG" alt=""><br>• 将公式中的常数项去掉，得到:<br><img src="/machine_learning/40.PNG" alt=""> </p>
+<h1 id="分裂结点算法"><a href="#分裂结点算法" class="headerlink" title="分裂结点算法"></a>分裂结点算法</h1><p><img src="/machine_learning/41.PNG" alt=""><br>标红部分衡量了每个叶子节点对总体损失的的贡献，我们希望损失越小越 好，则标红部分的值越大越好。<br>因此，对一个叶子节点进行分裂，分裂前后的增益定义为：<br><img src="/machine_learning/42.PNG" alt=""><br>Gain的值越大，分裂后 L 减小越多。所以当对一个叶节点分割时，计算所 有候选(feature,value)对应的gain，选取gain最大的进行分割</p>
+<h2 id="树节点分裂方法（Split-Finding）"><a href="#树节点分裂方法（Split-Finding）" class="headerlink" title="树节点分裂方法（Split Finding）"></a>树节点分裂方法（Split Finding）</h2><blockquote>
+<p>精确算法<br>遍历所有特征的所有可能的分割点，计算gain值，选取值最大的（feature，value）去分割<br>近似算法<br>对于每个特征，只考察分位点，减少计算复杂度<br>• Global：学习每棵树前，提出候选切分点<br>• Local：每次分裂前，重新提出候选切分点</p>
+</blockquote>
+<h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><p>相比原始的GBDT，XGBoost的目标函数多了正则项，使得学习出来的 模型更加不容易过拟合。</p>
+<p>衡量树的复杂度指标:树的深度，内部节点个数，叶子节点个数(T)，叶节点分数(w)…<br>XGBoost采用的：对叶子节点个数进行惩罚，相当于在训练过程中做了剪枝。<br><img src="/machine_learning/43.PNG" alt=""> </p>
+<h1 id="对缺失值处理"><a href="#对缺失值处理" class="headerlink" title="对缺失值处理"></a>对缺失值处理</h1><p>• 稀疏值： 缺失，类别one-hot编码，大量0值<br>• 当特征出现缺失值时，XGBoost可以学习出默认的节点分裂方向</p>
+<h1 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h1><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><p>• 行抽样（row sample）<br>• 列抽样（column sample）<br>借鉴随机森林<br>• Shrinkage（缩减），即学习速率<br>将学习速率调小，迭代次数增多，有正则化作用<br>• 支持自定义损失函数（需二阶可导）</p>
+<p>1）在寻找最佳分割点时，考虑传统的枚举每个特征的所有可能分割点的贪心法效率太低，xgboost实现了一种近似的算法。大致的思想是根据百分位法列举几个可能成为分割点的候选者，然后从候选者中根据上面求分割点的公式计算找出最佳的分割点。<br>2）xgboost考虑了训练数据为稀疏值的情况，可以为缺失值或者指定的值指定分支的默认方向，这能大大提升算法的效率，paper提到50倍。<br>3）特征列排序后以块的形式存储在内存中，在迭代中可以重复使用；虽然boosting算法迭代必须串行，但是在处理每个特征列时可以做到并行。<br>4）按照特征列方式存储能优化寻找最佳的分割点，但是当以行计算梯度数据时会导致内存的不连续访问，严重时会导致cache miss，降低算法效率。paper中提到，可先将数据收集到线程内部的buffer，然后再计算，提高算法的效率。<br>5）xgboost 还考虑了当数据量比较大，内存不够时怎么有效的使用磁盘，主要是结合多线程、数据压缩、分片的方法，尽可能的提高算法的效率。</p>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>适用场景：分类回归问题都可以。</p>
+<h1 id="sklearn参数"><a href="#sklearn参数" class="headerlink" title="sklearn参数"></a>sklearn参数</h1><h2 id="重要的参数"><a href="#重要的参数" class="headerlink" title="重要的参数"></a>重要的参数</h2><p>1）objective [ default=reg:linear ] 定义学习任务及相应的学习目标<br>2）’eval_metric’ The choices are listed below，评估指标:<br>3）lambda [default=0] L2 正则的惩罚系数<br>4）alpha [default=0] L1 正则的惩罚系数<br>5）lambda_bias 在偏置上的L2正则。缺省值为0（在L1上没有偏置项的正则，因为L1时偏置不重要）<br>6）eta [default=0.3] 为了防止过拟合，更新过程中用到的收缩步长。在每次提升计算之后，算法会直接获得新特征的权重。 eta通过缩减特征的权重使提升计算过程更加保守。缺省值为0.3<br>取值范围为：[0,1]<br>7）max_depth [default=6] 数的最大深度。缺省值为6 ，取值范围为：[1,∞]<br>8）min_child_weight [default=1] 孩子节点中最小的样本权重和。如果一个叶子节点的样本权重和小于min_child_weight则拆分过程结束。在现行回归模型中，这个参数是指建立每个模型所需要的最小样本数。取值范围为: [0,∞]</p>
+<h2 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h2><p>DART<br>核心思想就是将dropout引入XGBoost<br>csr_matrix训练XGBoost<br>当数据规模比较大、较多列比较稀疏时，可以使用csr_matrix训练XGBoost模型，从而节约内存。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/12/Leetcode-求众数/" rel="next" title="Leetcode:求众数">
+                <i class="fa fa-chevron-left"></i> Leetcode:求众数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">brilliantZhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法原理"><span class="nav-number">1.</span> <span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#损失函数"><span class="nav-number">2.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分裂结点算法"><span class="nav-number">3.</span> <span class="nav-text">分裂结点算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树节点分裂方法（Split-Finding）"><span class="nav-number">3.1.</span> <span class="nav-text">树节点分裂方法（Split Finding）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则化"><span class="nav-number">4.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对缺失值处理"><span class="nav-number">5.</span> <span class="nav-text">对缺失值处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优缺点"><span class="nav-number">6.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">6.1.</span> <span class="nav-text">特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用场景"><span class="nav-number">7.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sklearn参数"><span class="nav-number">8.</span> <span class="nav-text">sklearn参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重要的参数"><span class="nav-number">8.1.</span> <span class="nav-text">重要的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他参数"><span class="nav-number">8.2.</span> <span class="nav-text">其他参数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brilliantZhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
