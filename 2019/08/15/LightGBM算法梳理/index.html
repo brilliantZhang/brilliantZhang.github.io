@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="LightGBM算法梳理
+LightGBM的起源GBDT 虽然是个强力的模型，但却有着一个致命的缺陷，不能用类似 mini batch 的方式来训练，需要对数据进行无数次的遍历。如果想要速度，就需要把数据都预加载在内存中，但这样数据就会受限于内存的大小；如果想要训练更多的数据，就要使用外存版本的决策树算法。
+为了能让 GBDT 高效地用上更多的数据，我们把思路转向了分布式 GBDT， 然后就有了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LightGBM算法梳理">
+<meta property="og:url" content="brilliantZhang.github.io/2019/08/15/LightGBM算法梳理/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="LightGBM算法梳理
+LightGBM的起源GBDT 虽然是个强力的模型，但却有着一个致命的缺陷，不能用类似 mini batch 的方式来训练，需要对数据进行无数次的遍历。如果想要速度，就需要把数据都预加载在内存中，但这样数据就会受限于内存的大小；如果想要训练更多的数据，就要使用外存版本的决策树算法。
+为了能让 GBDT 高效地用上更多的数据，我们把思路转向了分布式 GBDT， 然后就有了">
+<meta property="og:image" content="brilliantZhang.github.io/machine_learning/44.PNG">
+<meta property="og:updated_time" content="2019-08-15T08:49:03.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LightGBM算法梳理">
+<meta name="twitter:description" content="LightGBM算法梳理
+LightGBM的起源GBDT 虽然是个强力的模型，但却有着一个致命的缺陷，不能用类似 mini batch 的方式来训练，需要对数据进行无数次的遍历。如果想要速度，就需要把数据都预加载在内存中，但这样数据就会受限于内存的大小；如果想要训练更多的数据，就要使用外存版本的决策树算法。
+为了能让 GBDT 高效地用上更多的数据，我们把思路转向了分布式 GBDT， 然后就有了">
+<meta name="twitter:image" content="brilliantZhang.github.io/machine_learning/44.PNG">
+
+
+
+
+
+
+  <link rel="canonical" href="brilliantZhang.github.io/2019/08/15/LightGBM算法梳理/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>LightGBM算法梳理 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">So we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/15/LightGBM算法梳理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LightGBM算法梳理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-15 16:48:16 / 修改时间：16:49:03" itemprop="dateCreated datePublished" datetime="2019-08-15T16:48:16+08:00">2019-08-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>LightGBM算法梳理</p>
+<h1 id="LightGBM的起源"><a href="#LightGBM的起源" class="headerlink" title="LightGBM的起源"></a>LightGBM的起源</h1><p>GBDT 虽然是个强力的模型，但却有着一个致命的缺陷，不能用类似 mini batch 的方式来训练，需要对数据进行无数次的遍历。如果想要速度，就需要把数据都预加载在内存中，但这样数据就会受限于内存的大小；如果想要训练更多的数据，就要使用外存版本的决策树算法。</p>
+<p>为了能让 GBDT 高效地用上更多的数据，我们把思路转向了分布式 GBDT， 然后就有了 LightGBM。LigthGBM由微软提供，它和XGBoost一样是对GBDT的高效实现，原理上它和GBDT及XGBoost类似，都采用损失函数的负梯度作为当前决策树的残差近似值，去拟合新的决策树。设计的思路主要是两点:</p>
+<ol>
+<li>单个机器在不牺牲速度的情况下，尽可能多地用上更多的数据；</li>
+<li>多机并行的时候，通信的代价尽可能地低，并且在计算上可以做到线性加速。基于这两个需求，LightGBM 选择了基于 histogram 的决策树算法。相比于另一个主流的算法 pre-sorted（如 xgboost 中的 exact 算法），histogram 在内存消耗和计算代价上都有不少优势。</li>
+</ol>
+<p>lightGBM主要有以下特点：<br>• 基于Histogram的决策树算法<br>• 带深度限制的Leaf-wise的叶子生长策略<br>• 直方图做差加速<br>• 直接支持类别特征(Categorical Feature)<br>• Cache命中率优化<br>• 基于直方图的稀疏特征优化<br>• 多线程优化</p>
+<h1 id="Histogram-VS-pre-sorted"><a href="#Histogram-VS-pre-sorted" class="headerlink" title="Histogram VS pre-sorted"></a>Histogram VS pre-sorted</h1><p>LightGBM直接选择获得最大收益的结点来展开，而XGBoost是通过按层增长的方式来做，这样LightGBM能够在更小的计算代价上建立需要的决策树。当然在这样的算法中也需要控制树的深度和每个叶子结点的最小数据量，从而减少过拟合。<br>XGBoost和LightGBM之间的性能对比<br><img src="/machine_learning/44.PNG" alt=""></p>
+<h2 id="预排序方法（pre-sorted）："><a href="#预排序方法（pre-sorted）：" class="headerlink" title="预排序方法（pre-sorted）："></a>预排序方法（pre-sorted）：</h2><ol>
+<li>对所有特征按数值进行预排序。</li>
+<li>在每次的样本分割时，用O(# data)的代价找到每个特征的最优分割点。</li>
+<li>找到最后的特征以及分割点，将数据分裂成左右两个子节点。</li>
+</ol>
+<p>这种pre-sorting算法能够准确找到分裂点，但是在空间和时间上有很大的开销。由于需要对特征进行预排序并且需要保存排序后的索引值（为了后续快速的计算分裂点），因此内存需要训练数据的两倍。在遍历每一个分割点的时候，都需要进行分裂增益的计算，消耗的代价大。</p>
+<p>优点：<br>• 可以使用多线程<br>• 可以加速精确贪心算法</p>
+<p>缺点：<br>• 效率低下，可能产生不必要的叶结点<br>• 对cache优化不友好</p>
+<h2 id="histogram算法"><a href="#histogram算法" class="headerlink" title="histogram算法"></a>histogram算法</h2><p>占用的内存更低，数据分隔的复杂度更低。其思想是将连续的浮点特征离散成k个离散值，具体过程是首先确定对于每一个特征需要多少的桶bin，然后均分，将属于该桶的样本数据更新为bin的值，并构造宽度为k的Histogram。然后遍历训练数据，统计每个离散值在直方图中的累计统计量。在进行特征选择时，只需要根据直方图的离散值，遍历寻找最优的分割点。</p>
+<p>直方图算法有几个需要注意的地方：</p>
+<blockquote>
+<p>使用bin替代原始数据相当于增加了正则化；<br>使用bin意味着很多数据的细节特征被放弃了，相似的数据可能被划分到相同的桶中，这样的数据之间的差异就消失了；<br>bin数量选择决定了正则化的程度，bin越少惩罚越严重，欠拟合风险越高。<br>构建直方图时不需要对数据进行排序（比XGBoost快），因为预先设定了bin的范围；<br>直方图除了保存划分阈值和当前bin内样本数以外还保存了当前bin内所有样本的一阶梯度和（一阶梯度和的平方的均值等价于均方损失）；<br>阈值的选取是按照直方图从小到大遍历，使用了上面的一阶梯度和，目的是得到划分之后△loss最大的特征及阈值。</p>
+</blockquote>
+<p>优点：<br>• 内存消耗的降低，直方图算法不仅不需要额外存储预排序的结果，而且可以只保存特征离散化后的值，而这个值一般用8位整型存储就足够了，内存消耗可以降低为原来的1/8。<br>• 计算代价大幅降低，预排序算法每遍历一个特征值就需要计算一次分裂的增益，而直方图算法只需要计算k次（k可以认为是常数），时间复杂度从O(#data<em>#feature)优化到O(k</em>#features)。</p>
+<p>缺点：<br>• 由于特征被离散化后，找到的并不是很精确的分割点，所以会对结果产生影响。但在实际的数据集上表明，离散化的分裂点对最终的精度影响并不大，甚至会好一些。原因在于decision tree本身就是一个弱学习器，采用Histogram算法会起到正则化的效果，有效地防止模型的过拟合。</p>
+<p>Histogram算法还可以进一步加速。一个叶子的直方图可以由它的父亲节点的直方图与它兄弟的直方图做差得到。通常构造直方图，需要遍历该叶子上的所有数据，但直方图做差仅需遍历直方图的k个桶。利用这个方法，LightGBM可以在构造一个叶子的直方图后，可以用非常微小的代价得到它兄弟叶子的直方图，在速度上可以提升一倍</p>
+<h1 id="leaf-wise-VS-level-wise"><a href="#leaf-wise-VS-level-wise" class="headerlink" title="leaf-wise VS level-wise"></a>leaf-wise VS level-wise</h1><h2 id="level-wise"><a href="#level-wise" class="headerlink" title="level-wise"></a>level-wise</h2><p>XGBoost采用的是按层生长level（depth）-wise生长策略，能够同时分裂同一层的叶子，从而进行多线程优化，不容易过拟合；但不加区分的对待同一层的叶子，带来了很多没必要的开销。因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<h2 id="leaf-wise"><a href="#leaf-wise" class="headerlink" title="leaf-wise"></a>leaf-wise</h2><p>在Histogram算法之上，LightGBM进行进一步的优化。首先它抛弃了大多数GBDT工具使用的按层生长 (level-wise)的决策树生长策略，而使用了带有深度限制的按叶子生长 (leaf-wise)算法。</p>
+<p>LightGBM采用leaf-wise生长策略，每次从当前所有叶子中找到分裂增益最大（一般也是数据量最大）的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<h1 id="特征并行和数据并行"><a href="#特征并行和数据并行" class="headerlink" title="特征并行和数据并行"></a>特征并行和数据并行</h1><p>LightGBM原生支持并行学习，目前支持特征并行和数据并行的两种。特征并行的主要思想是在不同机器在不同的特征集合上分别寻找最优的分割点，然后在机器间同步最优的分割点。数据并行则是让不同的机器先在本地构造直方图，然后进行全局的合并，最后在合并的直方图上面寻找最优分割点。</p>
+<p>LightGBM针对这两种并行方法都做了优化，在特征并行算法中，通过在本地保存全部数据避免对数据切分结果的通信；在数据并行中使用分散规约(Reduce scatter)把直方图合并的任务分摊到不同的机器，降低通信和计算，并利用直方图做差，进一步减少了一半的通信量。基于投票的数据并行则进一步优化数据并行中的通信代价，使通信代价变成常数级别。在数据量很大的时候，使用投票并行可以得到非常好的加速效果。</p>
+<h1 id="顺序访问梯度"><a href="#顺序访问梯度" class="headerlink" title="顺序访问梯度"></a>顺序访问梯度</h1><p>预排序算法中有两个频繁的操作会导致cache-miss，也就是缓存消失（对速度的影响很大，特别是数据量很大的时候，顺序访问比随机访问的速度快4倍以上  ）。</p>
+<blockquote>
+<p>对梯度的访问：在计算增益的时候需要利用梯度，对于不同的特征，访问梯度的顺序是不一样的，并且是随机的。<br>对于索引表的访问：预排序算法使用了行号和叶子节点号的索引表，防止数据切分的时候对所有的特征进行切分。同访问梯度一样，所有的特征都要通过访问这个索引表来索引。<br>这两个操作都是随机的访问，会给系统性能带来非常大的下降。</p>
+</blockquote>
+<p>LightGBM使用的直方图算法能很好的解决这类问题。首先。对梯度的访问，因为不用对特征进行排序，同时，所有的特征都用同样的方式来访问，所以只需要对梯度访问的顺序进行重新排序，所有的特征都能连续的访问梯度。并且直方图算法不需要把数据id到叶子节点号上（不需要这个索引表，没有缓存消失问题）</p>
+<h1 id="支持类别特征"><a href="#支持类别特征" class="headerlink" title="支持类别特征"></a>支持类别特征</h1><p>实际上大多数机器学习工具都无法直接支持类别特征，一般需要把类别特征，转化one-hot特征，降低了空间和时间的效率。而类别特征的使用是在实践中很常用的。基于这个考虑，LightGBM优化了对类别特征的支持，可以直接输入类别特征，并在决策树算法上增加了类别特征的决策规则。</p>
+<p>one-hot编码是处理类别特征的一个通用方法，然而在树模型中，这可能并不一定是一个好的方法，尤其当类别特征中类别个数很多的情况下。主要的问题是：<br>可能无法在这个类别特征上进行切分（即浪费了这个特征）。使用one-hot编码的话，意味着在每一个决策节点上只能使用one vs rest的切分方式。当类别值很多时，每个类别上的数据可能会比较少，这时候切分会产生不平衡，这意味着切分增益也会很小（比较直观的理解是，不平衡的切分和不切分没有区别）。会影响决策树的学习。因为就算可以在这个类别特征进行切分，也会把数据切分到很多零碎的小空间上。</p>
+<h2 id="LightGBM处理分类特征大致流程："><a href="#LightGBM处理分类特征大致流程：" class="headerlink" title="LightGBM处理分类特征大致流程："></a>LightGBM处理分类特征大致流程：</h2><p>为了解决one-hot编码处理类别特征的不足。LightGBM采用了Many vs many的切分方式，实现了类别特征的最优切分。在1个k维的类别特征中寻找最优切分，朴素的枚举算法的复杂度是O(2^k)，而LightGBM采用了如On Grouping For Maximum Homogeneity的方法实现了O(k\log k)的算法。</p>
+<p>求解类别特征的最优切分的流程：<br>• 离散特征建立直方图的过程：<br>统计该特征下每一种离散值出现的次数，并从高到低排序，并过滤掉出现次数较少的特征值, 然后为每一个特征值，建立一个bin容器, 对于在bin容器内出现次数较少的特征值直接过滤掉，不建立bin容器。</p>
+<p>• 计算分裂阈值的过程：</p>
+<ol>
+<li><p>先看该特征下划分出的bin容器的个数，如果bin容器的数量小于4，直接使用one vs other方式, 逐个扫描每一个bin容器，找出最佳分裂点;</p>
+</li>
+<li><p>对于bin容器较多的情况, 先进行过滤，只让子集合较大的bin容器参加划分阈值计算, 对每一个符合条件的bin容器进行公式计算(公式如下: 该bin容器下所有样本的一阶梯度之和/该bin容器下所有样本的二阶梯度之和 + 正则项(参数cat_smooth)，得到一个值，根据该值对bin容器从小到大进行排序，然后分从左到右、从右到左进行搜索，得到最优分裂阈值。但是有一点，没有搜索所有的bin容器，而是设定了一个搜索bin容器数量的上限值，程序中设定是32，即参数max_num_cat。LightGBM中对离散特征实行的是many vs many 策略，这32个bin中最优划分的阈值的左边或者右边所有的bin容器就是一个many集合，而其他的bin容器就是另一个many集合。</p>
+</li>
+<li><p>对于连续特征，划分阈值只有一个，对于离散值可能会有多个划分阈值，每一个划分阈值对应着一个bin容器编号，当使用离散特征进行分裂时，只要数据样本对应的bin容器编号在这些阈值对应的bin集合之中，这条数据就加入分裂后的左子树，否则加入分裂后的右子树。</p>
+</li>
+</ol>
+<h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>分类回归问题都可以,适用场景根据实际项目和算法的优点进行选择。</p>
+<h1 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h1><p>针对 leaf-wise 树的参数优化：<br>num_leaves：控制了叶节点的数目。它是控制树模型复杂度的主要参数。<br>如果是level-wise，则该参数为2^{depth}，其中depth为树的深度。但是当叶子数量相同时，leaf-wise的树要远远深过level-wise树，非常容易导致过拟合。因此应该让num_leaves小于2^{depth}。在leaf-wise树中，并不存在depth的概念。因为不存在一个从leaves到depth的合理映射。<br>min_data_in_leaf：每个叶节点的最少样本数量。它是处理leaf-wise树的过拟合的重要参数。将它设为较大的值，可以避免生成一个过深的树。但是也可能导致欠拟合。<br>max_depth： 控制了树的最大深度。该参数可以显式的限制树的深度。</p>
+<p>针对更快的训练速度：<br>通过设置 bagging_fraction 和 bagging_freq 参数来使用 bagging 方法<br>通过设置 feature_fraction 参数来使用特征的子抽样<br>使用较小的 max_bin<br>使用 save_binary 在未来的学习过程对数据加载进行加速</p>
+<p>获取更好的准确率：<br>使用较大的 max_bin （学习速度可能变慢）<br>使用较小的 learning_rate 和较大的 num_iterations<br>使用较大的 num_leaves （可能导致过拟合）<br>使用更大的训练数据<br>尝试 dart</p>
+<p>缓解过拟合：<br>使用较小的 max_bin<br>使用较小的 num_leaves<br>使用 min_data_in_leaf 和 min_sum_hessian_in_leaf<br>通过设置 bagging_fraction 和 bagging_freq 来使用 bagging<br>通过设置 feature_fraction 来使用特征子抽样<br>使用更大的训练数据<br>使用 lambda_l1, lambda_l2 和 min_gain_to_split 来使用正则<br>尝试 max_depth 来避免生成过深的树</p>
+<p>核心参数：<br>boosting 或者’boost’ 或者 ‘boosting_type’： 一个字符串，给出了基学习器模型算法。可以为：<br>‘gbdt’： 表示传统的梯度提升决策树。默认值为’gbdt’<br>‘rf’： 表示随机森林。<br>‘dart’： 表示带dropout 的gbdt<br>goss：表示Gradient-based One-Side Sampling 的gbdt<br>data或者train或者train_data：一个字符串，给出了训练数据所在的文件的文件名。默认为空字符串。lightgbm将使用它来训练模型。<br>valid或者test或者valid_data或者test_data：一个字符串，表示验证集所在的文件的文件名。默认为空字符串。lightgbm将输出该数据集的度量。如果有多个验证集，则用逗号分隔。<br>num_iterations或者num_iteration或者num_tree或者num_trees或者num_round或者num_rounds或者num_boost_round 一个整数，给出了boosting的迭代次数。默认为 100。<br>learning_rate或者shrinkage_rate： 个浮点数，给出了学习率。默认为1。在dart 中，它还会影响dropped trees 的归一化权重。<br>num_leaves或者num_leaf：一个整数，给出了一棵树上的叶子数。默认为 31<br>tree_learner或者tree：一个字符串，给出了tree learner，主要用于并行学习。 默认为’serial’。<br>num_threads 或者num_thread 或者nthread：一个整数</p>
+<p>学习控制参数：<br>max_depth： 一个整数，限制了树模型的最大深度，默认值为-1。如果小于0，则表示没有限制。<br>min_data_in_leaf 或者 min_data_per_leaf 或者 min_data或者min_child_samples： 一个整数，表示一个叶子节点上包含的最少样本数量。默认值为 20<br>min_sum_hessian_in_leaf 或者 min_sum_hessian_per_leaf或者 min_sum_hessian 或者 min_hessian或者min_child_weight： 一个浮点数，表示一个叶子节点上的最小hessian 之和。（也就是叶节点样本权重之和的最小值） 默认为1e-3 。<br>feature_fraction或者sub_feature或者colsample_bytree：一个浮点数，取值范围为[0.0,1.0]， 默认值为0。如果小于1.0，则lightgbm 会在每次迭代中随机选择部分特征。如0.8 表示：在每棵树训练之前选择80% 的特征来训练。<br>feature_fraction_seed： 一个整数，表示feature_fraction 的随机数种子，默认为2。<br>bagging_fraction 或者sub_row 或者 subsample：一个浮点数，取值范围为[0.0,1.0]， 默认值为0。如果小于1.0，则lightgbm 会在每次迭代中随机选择部分样本来训练（非重复采样）。如0.8 表示：在每棵树训练之前选择80% 的样本（非重复采样）来训练。<br>bagging_freq 或者subsample_freq：一个整数，表示每bagging_freq 次执行bagging。如果该参数为0，表示禁用bagging。<br>bagging_seed 或者 bagging_fraction_seed：一个整数，表示bagging 的随机数种子，默认为 3 。<br>early_stopping_round 或者 early_stopping_rounds或者early_stopping：一个整数，默认为0。如果一个验证集的度量在early_stopping_round 循环中没有提升，则停止训练。如果为0则表示不开启早停。<br>lambda_l1 或者reg_alpha： 一个浮点数，表示L1正则化系数。默认为0<br>lambda_l2 或者reg_lambda： 一个浮点数，表示L2正则化系数。默认为0<br>min_split_gain 或者min_gain_to_split： 一个浮点数，表示执行切分的最小增益，默认为0<br>drop_rate： 一个浮点数，取值范围为[0.0,1.0]，表示dropout 的比例，默认为1。 该参数仅在dart 中使用</p>
+<h1 id="CatBoost"><a href="#CatBoost" class="headerlink" title="CatBoost"></a>CatBoost</h1><p>CatBoost是俄罗斯的搜索巨头Yandex在2017年开源的机器学习库，是Gradient Boosting(梯度提升) + Categorical Features(类别型特征)，也是基于梯度提升决策树的机器学习框架。</p>
+<p>CatBoost这个名字来自两个词“Category”和“Boosting”。如前所述，该库可以很好地处理各种类别型数据，是一种能够很好地处理类别型特征的梯度提升算法库。</p>
+<h2 id="CatBoost的优点"><a href="#CatBoost的优点" class="headerlink" title="CatBoost的优点"></a>CatBoost的优点</h2><p>性能卓越：在性能方面可以匹敌任何先进的机器学习算法<br>鲁棒性/强健性：它减少了对很多超参数调优的需求，并降低了过拟合的机会，这也使得模型变得更加具有通用性<br>易于使用：提供与scikit集成的Python接口，以及R和命令行界面<br>实用：可以处理类别型、数值型特征<br>可扩展：支持自定义损失函数</p>
+<h2 id="克服梯度偏差"><a href="#克服梯度偏差" class="headerlink" title="克服梯度偏差"></a>克服梯度偏差</h2><p>CatBoost，和所有标准梯度提升算法一样，都是通过构建新树来拟合当前模型的梯度。然而，所有经典的提升算法都存在由有偏的点态梯度估计引起的过拟合问题。在每个步骤中使用的梯度都使用当前模型中的相同的数据点来估计，这导致估计梯度在特征空间的任何域中的分布与该域中梯度的真实分布相比发生了偏移，从而导致过拟合。</p>
+<p>许多利用GBDT技术的算法（例如，XGBoost、LightGBM），构建一棵树分为两个阶段：选择树结构和在树结构固定后计算叶子节点的值。为了选择最佳的树结构，算法通过枚举不同的分割，用这些分割构建树，对得到的叶子节点中计算值，然后对得到的树计算评分，最后选择最佳的分割。两个阶段叶子节点的值都是被当做梯度或牛顿步长的近似值来计算。CatBoost第一阶段采用梯度步长的无偏估计，第二阶段使用传统的GBDT方案执行。</p>
+<h2 id="快速评分"><a href="#快速评分" class="headerlink" title="快速评分"></a>快速评分</h2><p>CatBoost使用oblivious树作为基本预测器。在这类树中，相同的分割准则在树的整个级别上使用。这种树是平衡的，不太容易过拟合。梯度提升oblivious树被成功地用于各种学习任务。在oblivious树中，每个叶子节点的索引可以被编码为长度等于树深度的二进制向量。这在CatBoost模型评估器中得到了广泛的应用：我们首先将所有浮点特征、统计信息和独热编码特征进行二值化，然后使用二进制特征来计算模型预测值。</p>
+<p>参考：<br><a href="https://www.biaodianfu.com/lightgbm.html" target="_blank" rel="external">https://www.biaodianfu.com/lightgbm.html</a><br><a href="https://www.biaodianfu.com/catboost.html" target="_blank" rel="external">https://www.biaodianfu.com/catboost.html</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/machine-learning/" rel="tag"># machine learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/Leetcode-二叉树的最大深度/" rel="next" title="Leetcode:二叉树的最大深度">
+                <i class="fa fa-chevron-left"></i> Leetcode:二叉树的最大深度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">brilliantZhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LightGBM的起源"><span class="nav-number">1.</span> <span class="nav-text">LightGBM的起源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Histogram-VS-pre-sorted"><span class="nav-number">2.</span> <span class="nav-text">Histogram VS pre-sorted</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#预排序方法（pre-sorted）："><span class="nav-number">2.1.</span> <span class="nav-text">预排序方法（pre-sorted）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#histogram算法"><span class="nav-number">2.2.</span> <span class="nav-text">histogram算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#leaf-wise-VS-level-wise"><span class="nav-number">3.</span> <span class="nav-text">leaf-wise VS level-wise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#level-wise"><span class="nav-number">3.1.</span> <span class="nav-text">level-wise</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#leaf-wise"><span class="nav-number">3.2.</span> <span class="nav-text">leaf-wise</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征并行和数据并行"><span class="nav-number">4.</span> <span class="nav-text">特征并行和数据并行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#顺序访问梯度"><span class="nav-number">5.</span> <span class="nav-text">顺序访问梯度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持类别特征"><span class="nav-number">6.</span> <span class="nav-text">支持类别特征</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LightGBM处理分类特征大致流程："><span class="nav-number">6.1.</span> <span class="nav-text">LightGBM处理分类特征大致流程：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用场景"><span class="nav-number">7.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参数"><span class="nav-number">8.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CatBoost"><span class="nav-number">9.</span> <span class="nav-text">CatBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CatBoost的优点"><span class="nav-number">9.1.</span> <span class="nav-text">CatBoost的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克服梯度偏差"><span class="nav-number">9.2.</span> <span class="nav-text">克服梯度偏差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速评分"><span class="nav-number">9.3.</span> <span class="nav-text">快速评分</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brilliantZhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
