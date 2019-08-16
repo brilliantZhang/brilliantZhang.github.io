@@ -109,30 +109,30 @@
 
 
   <meta name="description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
+解题思路当栈不为空或树还没遍历完，先依次遍历左子树，若到k个节点，输出节点值，否则，出栈遍历父节点右子树的节点直到第k个节点，即根据二叉树的特点做中序遍历可以得到有序的节点值
+代码12345678910111213141516171819# Definition for a binary tree node.# class TreeNode:#     def __init__(self">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:只出现一次的数字">
-<meta property="og:url" content="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/index.html">
+<meta property="og:title" content="Leetcode:二叉搜索树中第K小的元素">
+<meta property="og:url" content="brilliantZhang.github.io/2019/08/16/Leetcode-二叉搜索树中第K小的元素/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/8.PNG">
-<meta property="og:updated_time" content="2019-08-12T07:15:38.996Z">
+解题思路当栈不为空或树还没遍历完，先依次遍历左子树，若到k个节点，输出节点值，否则，出栈遍历父节点右子树的节点直到第k个节点，即根据二叉树的特点做中序遍历可以得到有序的节点值
+代码12345678910111213141516171819# Definition for a binary tree node.# class TreeNode:#     def __init__(self">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/13.PNG">
+<meta property="og:updated_time" content="2019-08-16T09:07:22.614Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:只出现一次的数字">
+<meta name="twitter:title" content="Leetcode:二叉搜索树中第K小的元素">
 <meta name="twitter:description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/8.PNG">
+解题思路当栈不为空或树还没遍历完，先依次遍历左子树，若到k个节点，输出节点值，否则，出栈遍历父节点右子树的节点直到第k个节点，即根据二叉树的特点做中序遍历可以得到有序的节点值
+代码12345678910111213141516171819# Definition for a binary tree node.# class TreeNode:#     def __init__(self">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/13.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/08/16/Leetcode-二叉搜索树中第K小的元素/"/>
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Leetcode:只出现一次的数字 | My Blog</title>
+  <title>Leetcode:二叉搜索树中第K小的元素 | My Blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/16/Leetcode-二叉搜索树中第K小的元素/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:只出现一次的数字
+          <h1 class="post-title" itemprop="name headline">Leetcode:二叉搜索树中第K小的元素
               
             
           </h1>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-08-12 15:13:20 / 修改时间：15:15:38" itemprop="dateCreated datePublished" datetime="2019-08-12T15:13:20+08:00">2019-08-12</time>
+              <time title="创建时间：2019-08-16 16:26:07 / 修改时间：17:07:22" itemprop="dateCreated datePublished" datetime="2019-08-16T16:26:07+08:00">2019-08-16</time>
             
 
             
@@ -371,9 +371,9 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/8.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>利用位运算求解：<br>交换律：a ^ b ^ c &lt;=&gt; a ^ c ^ b<br>任何数与0异或为任何数 0 ^ n =&gt; n<br>相同的数异或为0: n ^ n =&gt; 0</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></div><div class="line">        res=<span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</div><div class="line">            res^=i</div><div class="line">        <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/13.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>当栈不为空或树还没遍历完，先依次遍历左子树，若到k个节点，输出节点值，否则，出栈遍历父节点右子树的节点直到第k个节点，即根据二叉树的特点做中序遍历可以得到有序的节点值</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Definition for a binary tree node.</span></div><div class="line"><span class="comment"># class TreeNode:</span></div><div class="line"><span class="comment">#     def __init__(self, x):</span></div><div class="line"><span class="comment">#         self.val = x</span></div><div class="line"><span class="comment">#         self.left = None</span></div><div class="line"><span class="comment">#         self.right = None</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">kthSmallest</span><span class="params">(self, root: TreeNode, k: int)</span> -&gt; int:</span></div><div class="line">        stack = []</div><div class="line">        <span class="keyword">while</span> root <span class="keyword">or</span> stack:</div><div class="line">            <span class="keyword">while</span> root:</div><div class="line">                stack.append(root)</div><div class="line">                root = root.left</div><div class="line">            root = stack.pop()</div><div class="line">            k -= <span class="number">1</span></div><div class="line">            <span class="keyword">if</span> k == <span class="number">0</span>:</div><div class="line">                <span class="keyword">return</span> root.val</div><div class="line">            root = root.right</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -406,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/11/Leetcode-子集/" rel="next" title="Leetcode:子集">
-                <i class="fa fa-chevron-left"></i> Leetcode:子集
+              <a href="/2019/08/16/Leetcode-二叉树中的最大路径和/" rel="next" title="Leetcode:二叉树中的最大路径和">
+                <i class="fa fa-chevron-left"></i> Leetcode:二叉树中的最大路径和
               </a>
             
           </div>
@@ -415,10 +415,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/12/Leetcode-求众数/" rel="prev" title="Leetcode:求众数">
-                Leetcode:求众数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
