@@ -109,30 +109,30 @@
 
 
   <meta name="description" content="题目描述
-解题思路二分法，定义k为两数组长度和，每次循环消去 k/2 个数，当消去完k-1个数，此时k=1，则第k个数即为中位数；具体为先找到两数组中待消去界限的较小者，再消去该数组的界限前的数，递归地进行，直到k=1
-代码12345678910111213141516171819202122232425262728293031class Solution:    def getKth(self,">
+解题思路定义快慢两个指针，第一步，快指针每次走两步，慢指针每次走一步，如果快慢指针相遇，则说明有环，若快指针走到尾节点，即指针域为空，则说明无环；第二步，快指针指向头指针，快慢指针每次都走一步，相遇节点为连接处节点
+代码123456789101112131415161718192021222324252627282930313233/** * Definition for singly-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:寻找两个有序数组的中位数">
-<meta property="og:url" content="brilliantZhang.github.io/2019/08/25/Leetcode-寻找两个有序数组的中位数/index.html">
+<meta property="og:title" content="Leetcode:环形链表II">
+<meta property="og:url" content="brilliantZhang.github.io/2019/09/21/Leetcode-环形链表II/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路二分法，定义k为两数组长度和，每次循环消去 k/2 个数，当消去完k-1个数，此时k=1，则第k个数即为中位数；具体为先找到两数组中待消去界限的较小者，再消去该数组的界限前的数，递归地进行，直到k=1
-代码12345678910111213141516171819202122232425262728293031class Solution:    def getKth(self,">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/18.PNG">
-<meta property="og:updated_time" content="2019-08-25T13:16:46.364Z">
+解题思路定义快慢两个指针，第一步，快指针每次走两步，慢指针每次走一步，如果快慢指针相遇，则说明有环，若快指针走到尾节点，即指针域为空，则说明无环；第二步，快指针指向头指针，快慢指针每次都走一步，相遇节点为连接处节点
+代码123456789101112131415161718192021222324252627282930313233/** * Definition for singly-">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/36.PNG">
+<meta property="og:updated_time" content="2019-09-21T15:06:32.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:寻找两个有序数组的中位数">
+<meta name="twitter:title" content="Leetcode:环形链表II">
 <meta name="twitter:description" content="题目描述
-解题思路二分法，定义k为两数组长度和，每次循环消去 k/2 个数，当消去完k-1个数，此时k=1，则第k个数即为中位数；具体为先找到两数组中待消去界限的较小者，再消去该数组的界限前的数，递归地进行，直到k=1
-代码12345678910111213141516171819202122232425262728293031class Solution:    def getKth(self,">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/18.PNG">
+解题思路定义快慢两个指针，第一步，快指针每次走两步，慢指针每次走一步，如果快慢指针相遇，则说明有环，若快指针走到尾节点，即指针域为空，则说明无环；第二步，快指针指向头指针，快慢指针每次都走一步，相遇节点为连接处节点
+代码123456789101112131415161718192021222324252627282930313233/** * Definition for singly-">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/36.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/08/25/Leetcode-寻找两个有序数组的中位数/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/09/21/Leetcode-环形链表II/"/>
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Leetcode:寻找两个有序数组的中位数 | My Blog</title>
+  <title>Leetcode:环形链表II | My Blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/25/Leetcode-寻找两个有序数组的中位数/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/21/Leetcode-环形链表II/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:寻找两个有序数组的中位数
+          <h1 class="post-title" itemprop="name headline">Leetcode:环形链表II
               
             
           </h1>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-08-25 21:07:22 / 修改时间：21:16:46" itemprop="dateCreated datePublished" datetime="2019-08-25T21:07:22+08:00">2019-08-25</time>
+              <time title="创建时间：2019-09-21 23:01:06 / 修改时间：23:06:32" itemprop="dateCreated datePublished" datetime="2019-09-21T23:01:06+08:00">2019-09-21</time>
             
 
             
@@ -371,9 +371,10 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/18.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>二分法，定义k为两数组长度和，每次循环消去 k/2 个数，当消去完k-1个数，此时k=1，则第k个数即为中位数；具体为先找到两数组中待消去界限的较小者，再消去该数组的界限前的数，递归地进行，直到k=1</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getKth</span><span class="params">(self,nums1, start1,end1,nums2, start2,end2,  k)</span>:</span></div><div class="line">        len1 = end1 - start1 + <span class="number">1</span></div><div class="line">        len2 = end2 - start2 + <span class="number">1</span></div><div class="line">        <span class="comment">#让 len1 的长度小于 len2，这样就能保证如果有数组空了，一定是 len1 </span></div><div class="line">        <span class="keyword">if</span> (len1 &gt; len2) :</div><div class="line">            <span class="keyword">return</span> self.getKth(nums2, start2, end2, nums1, start1, end1, k)</div><div class="line">        <span class="comment">#num1为空，则中位数为nums2中位数</span></div><div class="line">        <span class="keyword">if</span> (len1 == <span class="number">0</span>) :</div><div class="line">            <span class="keyword">return</span> nums2[start2 + k - <span class="number">1</span>]</div><div class="line">        <span class="comment">#消去了前k-1个数，此时第k个即为中位数</span></div><div class="line">        <span class="keyword">if</span> (k == <span class="number">1</span>):</div><div class="line">            <span class="keyword">return</span> min(nums1[start1], nums2[start2])</div><div class="line">        <span class="comment">#设置nums1，nums2起始位置</span></div><div class="line">        i = start1 + min(len1, k // <span class="number">2</span>) - <span class="number">1</span></div><div class="line">        j = start2 + min(len2, k // <span class="number">2</span>) - <span class="number">1</span></div><div class="line">        <span class="comment">#消去数字，并重新设置k</span></div><div class="line">        <span class="keyword">if</span> (nums1[i] &gt; nums2[j]) :<span class="comment">#消去nums2中的数,通过改变start2</span></div><div class="line">            <span class="keyword">return</span> self.getKth(nums1, start1, end1, nums2, j + <span class="number">1</span>, end2, k - (j - start2 + <span class="number">1</span>))</div><div class="line">        <span class="keyword">else</span> :<span class="comment">#消去nums1中的数,通过改变start1</span></div><div class="line">            <span class="keyword">return</span> self.getKth(nums1, i + <span class="number">1</span>, end1, nums2, start2, end2, k - (i - start1 + <span class="number">1</span>))</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, nums1: List[int], nums2: List[int])</span> -&gt; float:</span></div><div class="line">        n = len(nums1)</div><div class="line">        m = len(nums2)</div><div class="line">        left = (n + m + <span class="number">1</span>) // <span class="number">2</span></div><div class="line">        right = (n + m + <span class="number">2</span>) // <span class="number">2</span></div><div class="line">        </div><div class="line">        <span class="comment">#将偶数和奇数的情况合并，如果是奇数，会求两次同样的 k </span></div><div class="line">        <span class="keyword">return</span> (self.getKth(nums1, <span class="number">0</span>, n - <span class="number">1</span>, nums2, <span class="number">0</span>, m - <span class="number">1</span>, left) + </div><div class="line">                self.getKth(nums1, <span class="number">0</span>, n - <span class="number">1</span>, nums2, <span class="number">0</span>, m - <span class="number">1</span>, right)) * <span class="number">0.5</span>;</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/36.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>定义快慢两个指针，第一步，快指针每次走两步，慢指针每次走一步，如果快慢指针相遇，则说明有环，若快指针走到尾节点，即指针域为空，则说明无环；第二步，快指针指向头指针，快慢指针每次都走一步，相遇节点为连接处节点</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     struct ListNode *next;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">struct</span> ListNode *<span class="title">detectCycle</span><span class="params">(<span class="keyword">struct</span> ListNode *head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">struct</span> ListNode *slow = head;</div><div class="line">    <span class="keyword">struct</span> ListNode *fast = head;</div><div class="line">    <span class="keyword">while</span> (<span class="number">1</span>) </div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (fast == <span class="literal">NULL</span> || fast-&gt;next == <span class="literal">NULL</span>) </div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">        &#125;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        fast = fast-&gt;next-&gt;next;</div><div class="line">        <span class="keyword">if</span> (fast==slow)&#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    fast = head;</div><div class="line">    <span class="keyword">while</span> (slow != fast) &#123;</div><div class="line">        slow = slow-&gt;next;</div><div class="line">        fast = fast-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> fast;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -406,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/25/leetcode-nim游戏/" rel="next" title="Leetcode:nim游戏">
-                <i class="fa fa-chevron-left"></i> Leetcode:nim游戏
+              <a href="/2019/09/19/Leetcode-环形链表/" rel="next" title="Leetcode:环形链表">
+                <i class="fa fa-chevron-left"></i> Leetcode:环形链表
               </a>
             
           </div>
@@ -415,10 +416,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/08/30/Leetcode-删除排序数组中的重复项/" rel="prev" title="Leetcode:删除排序数组中的重复项">
-                Leetcode:删除排序数组中的重复项 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
