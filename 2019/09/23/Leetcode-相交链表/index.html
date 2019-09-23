@@ -109,30 +109,30 @@
 
 
   <meta name="description" content="题目描述
-解题思路先划定边界值，每次顺时针方向遍历数组，到达边界值时，在这个方向上缩小边界，改变方向，并先判断边界是否已经重合，直至遍历完数组
-代码1234567891011121314151617181920212223242526272829303132333435363738class Solution:    def spiralOrder(self, matrix: List[List[">
+解题思路穷举遍历两个链表直到遇到相交处，返回该节点
+代码12345678910111213141516171819202122/** * Definition for singly-linked list. * struct ListNode &amp;#123; *     int val; *     struct ListNode *next; * &amp;#125;; */struct Lis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:螺旋矩阵">
-<meta property="og:url" content="brilliantZhang.github.io/2019/09/07/Leetcode-螺旋矩阵/index.html">
+<meta property="og:title" content="Leetcode:相交链表">
+<meta property="og:url" content="brilliantZhang.github.io/2019/09/23/Leetcode-相交链表/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路先划定边界值，每次顺时针方向遍历数组，到达边界值时，在这个方向上缩小边界，改变方向，并先判断边界是否已经重合，直至遍历完数组
-代码1234567891011121314151617181920212223242526272829303132333435363738class Solution:    def spiralOrder(self, matrix: List[List[">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/25.PNG">
-<meta property="og:updated_time" content="2019-09-07T03:06:14.034Z">
+解题思路穷举遍历两个链表直到遇到相交处，返回该节点
+代码12345678910111213141516171819202122/** * Definition for singly-linked list. * struct ListNode &amp;#123; *     int val; *     struct ListNode *next; * &amp;#125;; */struct Lis">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/38.PNG">
+<meta property="og:updated_time" content="2019-09-23T15:31:19.743Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:螺旋矩阵">
+<meta name="twitter:title" content="Leetcode:相交链表">
 <meta name="twitter:description" content="题目描述
-解题思路先划定边界值，每次顺时针方向遍历数组，到达边界值时，在这个方向上缩小边界，改变方向，并先判断边界是否已经重合，直至遍历完数组
-代码1234567891011121314151617181920212223242526272829303132333435363738class Solution:    def spiralOrder(self, matrix: List[List[">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/25.PNG">
+解题思路穷举遍历两个链表直到遇到相交处，返回该节点
+代码12345678910111213141516171819202122/** * Definition for singly-linked list. * struct ListNode &amp;#123; *     int val; *     struct ListNode *next; * &amp;#125;; */struct Lis">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/38.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/09/07/Leetcode-螺旋矩阵/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/09/23/Leetcode-相交链表/"/>
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Leetcode:螺旋矩阵 | My Blog</title>
+  <title>Leetcode:相交链表 | My Blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/07/Leetcode-螺旋矩阵/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/23/Leetcode-相交链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:螺旋矩阵
+          <h1 class="post-title" itemprop="name headline">Leetcode:相交链表
               
             
           </h1>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-09-07 10:59:25 / 修改时间：11:06:14" itemprop="dateCreated datePublished" datetime="2019-09-07T10:59:25+08:00">2019-09-07</time>
+              <time title="创建时间：2019-09-23 22:02:07 / 修改时间：23:31:19" itemprop="dateCreated datePublished" datetime="2019-09-23T22:02:07+08:00">2019-09-23</time>
             
 
             
@@ -371,9 +371,9 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/25.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>先划定边界值，每次顺时针方向遍历数组，到达边界值时，在这个方向上缩小边界，改变方向，并先判断边界是否已经重合，直至遍历完数组</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">spiralOrder</span><span class="params">(self, matrix: List[List[int]])</span> -&gt; List[int]:</span></div><div class="line">        res=[]</div><div class="line">        <span class="keyword">if</span> len(matrix) == <span class="number">0</span>: <span class="keyword">return</span> res</div><div class="line">        </div><div class="line">        m = len(matrix)</div><div class="line">        n = len(matrix[<span class="number">0</span>])</div><div class="line">    </div><div class="line">        u = <span class="number">0</span></div><div class="line">        d = m<span class="number">-1</span></div><div class="line">        l = <span class="number">0</span></div><div class="line">        r = n<span class="number">-1</span>  </div><div class="line">        <span class="keyword">while</span>(<span class="keyword">True</span>) :</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(l,r+<span class="number">1</span>):</div><div class="line">                res.append(matrix[u][i])</div><div class="line">            u+=<span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(u &gt; d) :</div><div class="line">                <span class="keyword">break</span></div><div class="line">            </div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(u,d+<span class="number">1</span>):</div><div class="line">                res.append(matrix[i][r])</div><div class="line">            r-=<span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(l &gt; r) :</div><div class="line">                <span class="keyword">break</span></div><div class="line">             </div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(r,l<span class="number">-1</span>,<span class="number">-1</span>):</div><div class="line">                res.append(matrix[d][i])</div><div class="line">            d-=<span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(u &gt; d) :</div><div class="line">                <span class="keyword">break</span></div><div class="line">            </div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(d,u<span class="number">-1</span>,<span class="number">-1</span>):</div><div class="line">                res.append(matrix[i][l])</div><div class="line">            l+=<span class="number">1</span></div><div class="line">            <span class="keyword">if</span>(l &gt; r) :</div><div class="line">                <span class="keyword">break</span></div><div class="line">        </div><div class="line">        <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/38.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>穷举遍历两个链表直到遇到相交处，返回该节点</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * struct ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     struct ListNode *next;</div><div class="line"> * &#125;;</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">struct</span> ListNode *<span class="title">getIntersectionNode</span><span class="params">(<span class="keyword">struct</span> ListNode *headA, <span class="keyword">struct</span> ListNode *headB)</span> </span>&#123;</div><div class="line">    <span class="keyword">struct</span> ListNode *pa=headA,*pb=headB;</div><div class="line">    <span class="keyword">while</span>(pa)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">while</span>(pb)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span> (pa==pb)</div><div class="line">                <span class="keyword">return</span> pa;</div><div class="line">            pb=pb-&gt;next;</div><div class="line">        &#125;</div><div class="line">        pb=headB;</div><div class="line">        pa=pa-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -406,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/04/Leetcode-搜索旋转排序数组/" rel="next" title="Leetcode:搜索旋转排序数组">
-                <i class="fa fa-chevron-left"></i> Leetcode:搜索旋转排序数组
+              <a href="/2019/09/22/Leetcode-反转链表/" rel="next" title="Leetcode:反转链表">
+                <i class="fa fa-chevron-left"></i> Leetcode:反转链表
               </a>
             
           </div>
@@ -415,10 +415,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/08/Leetcode-螺旋矩阵II/" rel="prev" title="Leetcode:螺旋矩阵II">
-                Leetcode:螺旋矩阵II <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
