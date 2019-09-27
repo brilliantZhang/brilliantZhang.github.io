@@ -109,30 +109,30 @@
 
 
   <meta name="description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
+解题思路先寻找符号位和数字位，再将剩余数字连接到字符串，将数值部分进行转换，最后进行溢出判断，超出范围的返回边界值
+代码1234567891011121314151617181920212223242526272829303132333435363738394041class Solution:    def myAtoi(self, str: str) -&amp;gt; int:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:只出现一次的数字">
-<meta property="og:url" content="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/index.html">
+<meta property="og:title" content="Leetcode:字符串转换整数">
+<meta property="og:url" content="brilliantZhang.github.io/2019/09/27/Leetcode-字符串转换整数/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/8.PNG">
-<meta property="og:updated_time" content="2019-08-12T07:15:38.996Z">
+解题思路先寻找符号位和数字位，再将剩余数字连接到字符串，将数值部分进行转换，最后进行溢出判断，超出范围的返回边界值
+代码1234567891011121314151617181920212223242526272829303132333435363738394041class Solution:    def myAtoi(self, str: str) -&amp;gt; int:">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/41.PNG">
+<meta property="og:updated_time" content="2019-09-27T07:33:20.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:只出现一次的数字">
+<meta name="twitter:title" content="Leetcode:字符串转换整数">
 <meta name="twitter:description" content="题目描述
-解题思路利用位运算求解：交换律：a ^ b ^ c &amp;lt;=&amp;gt; a ^ c ^ b任何数与0异或为任何数 0 ^ n =&amp;gt; n相同的数异或为0: n ^ n =&amp;gt; 0
-代码123456class Solution:    def singleNumber(self, nums: List[int]) -&amp;gt; int:        res=0        for">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/8.PNG">
+解题思路先寻找符号位和数字位，再将剩余数字连接到字符串，将数值部分进行转换，最后进行溢出判断，超出范围的返回边界值
+代码1234567891011121314151617181920212223242526272829303132333435363738394041class Solution:    def myAtoi(self, str: str) -&amp;gt; int:">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/41.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/09/27/Leetcode-字符串转换整数/"/>
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Leetcode:只出现一次的数字 | My Blog</title>
+  <title>Leetcode:字符串转换整数 | My Blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/12/Leetcode-只出现一次的数字/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/27/Leetcode-字符串转换整数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:只出现一次的数字
+          <h1 class="post-title" itemprop="name headline">Leetcode:字符串转换整数
               
             
           </h1>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-08-12 15:13:20 / 修改时间：15:15:38" itemprop="dateCreated datePublished" datetime="2019-08-12T15:13:20+08:00">2019-08-12</time>
+              <time title="创建时间：2019-09-27 15:25:21 / 修改时间：15:33:20" itemprop="dateCreated datePublished" datetime="2019-09-27T15:25:21+08:00">2019-09-27</time>
             
 
             
@@ -371,9 +371,9 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/8.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>利用位运算求解：<br>交换律：a ^ b ^ c &lt;=&gt; a ^ c ^ b<br>任何数与0异或为任何数 0 ^ n =&gt; n<br>相同的数异或为0: n ^ n =&gt; 0</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></div><div class="line">        res=<span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</div><div class="line">            res^=i</div><div class="line">        <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/41.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>先寻找符号位和数字位，再将剩余数字连接到字符串，将数值部分进行转换，最后进行溢出判断，超出范围的返回边界值</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">myAtoi</span><span class="params">(self, str: str)</span> -&gt; int:</span></div><div class="line">        s = str.strip()</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s:<span class="comment">#字符串为空</span></div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        <span class="comment">#长度为1时，首位必须是数字</span></div><div class="line">        <span class="keyword">if</span> len(s) == <span class="number">1</span> <span class="keyword">and</span> <span class="keyword">not</span> s[<span class="number">0</span>].isnumeric():<span class="comment">#第一个非空格字符不是一个有效整数字符</span></div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        <span class="comment">#长度不为1时，首位必须是数字或正负号</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> s[<span class="number">0</span>].isnumeric() <span class="keyword">and</span> s[<span class="number">0</span>] != <span class="string">'-'</span> <span class="keyword">and</span> s[<span class="number">0</span>] != <span class="string">'+'</span>:</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        </div><div class="line">        neg = <span class="keyword">False</span></div><div class="line">        <span class="keyword">if</span> s[<span class="number">0</span>] == <span class="string">'-'</span>:</div><div class="line">            neg = <span class="keyword">True</span></div><div class="line">            s = s[<span class="number">1</span>:]</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> s[<span class="number">0</span>].isnumeric():</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        <span class="keyword">if</span> s[<span class="number">0</span>] == <span class="string">'+'</span>:</div><div class="line">            s = s[<span class="number">1</span>:]</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> s[<span class="number">0</span>].isnumeric():</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        </div><div class="line">        numbers = <span class="string">''</span></div><div class="line">        i = <span class="number">0</span></div><div class="line">        <span class="keyword">while</span> i &lt; len(s) <span class="keyword">and</span> s[i].isnumeric():</div><div class="line">            numbers += s[i]</div><div class="line">            i += <span class="number">1</span></div><div class="line">            </div><div class="line">        value = int(numbers)</div><div class="line">        <span class="keyword">if</span> neg:</div><div class="line">            <span class="keyword">if</span> value &gt; <span class="number">2147483648</span>:</div><div class="line">                <span class="keyword">return</span> <span class="number">-2147483648</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span> - value</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">if</span> value &gt; <span class="number">2147483647</span>:</div><div class="line">                <span class="keyword">return</span> <span class="number">2147483647</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">return</span> value</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -406,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/11/Leetcode-子集/" rel="next" title="Leetcode:子集">
-                <i class="fa fa-chevron-left"></i> Leetcode:子集
+              <a href="/2019/09/25/Leetcode-整数反转/" rel="next" title="Leetcode:整数反转">
+                <i class="fa fa-chevron-left"></i> Leetcode:整数反转
               </a>
             
           </div>
@@ -416,8 +416,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/12/Leetcode-求众数/" rel="prev" title="Leetcode:求众数">
-                Leetcode:求众数 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/27/Leetcode-回文数/" rel="prev" title="Leetcode:回文数">
+                Leetcode:回文数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
