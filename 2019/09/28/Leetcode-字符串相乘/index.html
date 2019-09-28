@@ -109,30 +109,27 @@
 
 
   <meta name="description" content="题目描述
-解题思路溢出判断:MAX_VALUE : 2147483647 MIN_VALUE : -2147483648 他要判断最后一位不要大于7和不要小于8,除10取余得到每一位，再乘回去得到反转的数
-代码1234567891011int reverse(int x) &amp;#123;    int rev=0;    while (x != 0) &amp;#123;            int po">
+解题思路竖式模拟，通过两数相乘时，乘数某位与被乘数某位相乘，与产生结果的位置的规律来完成。具体规律如下：乘数 num1 位数为 M，被乘数 num2 位数为 N, num1 x num2 结果 res 最大总位数为 M+N，num1[i] x num2[j] 的结果为 tmp，其第一位位于 res[i+j],第二位位于res[i+j+1]；通过两个循环遍历相乘，通过移位对应好位置，最后将">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:整数反转">
-<meta property="og:url" content="brilliantZhang.github.io/2019/09/25/Leetcode-整数反转/index.html">
+<meta property="og:title" content="Leetcode:字符串相乘">
+<meta property="og:url" content="brilliantZhang.github.io/2019/09/28/Leetcode-字符串相乘/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路溢出判断:MAX_VALUE : 2147483647 MIN_VALUE : -2147483648 他要判断最后一位不要大于7和不要小于8,除10取余得到每一位，再乘回去得到反转的数
-代码1234567891011int reverse(int x) &amp;#123;    int rev=0;    while (x != 0) &amp;#123;            int po">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/40.PNG">
-<meta property="og:updated_time" content="2019-09-25T15:32:35.402Z">
+解题思路竖式模拟，通过两数相乘时，乘数某位与被乘数某位相乘，与产生结果的位置的规律来完成。具体规律如下：乘数 num1 位数为 M，被乘数 num2 位数为 N, num1 x num2 结果 res 最大总位数为 M+N，num1[i] x num2[j] 的结果为 tmp，其第一位位于 res[i+j],第二位位于res[i+j+1]；通过两个循环遍历相乘，通过移位对应好位置，最后将">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/43.PNG">
+<meta property="og:updated_time" content="2019-09-28T14:40:20.338Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:整数反转">
+<meta name="twitter:title" content="Leetcode:字符串相乘">
 <meta name="twitter:description" content="题目描述
-解题思路溢出判断:MAX_VALUE : 2147483647 MIN_VALUE : -2147483648 他要判断最后一位不要大于7和不要小于8,除10取余得到每一位，再乘回去得到反转的数
-代码1234567891011int reverse(int x) &amp;#123;    int rev=0;    while (x != 0) &amp;#123;            int po">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/40.PNG">
+解题思路竖式模拟，通过两数相乘时，乘数某位与被乘数某位相乘，与产生结果的位置的规律来完成。具体规律如下：乘数 num1 位数为 M，被乘数 num2 位数为 N, num1 x num2 结果 res 最大总位数为 M+N，num1[i] x num2[j] 的结果为 tmp，其第一位位于 res[i+j],第二位位于res[i+j+1]；通过两个循环遍历相乘，通过移位对应好位置，最后将">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/43.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/09/25/Leetcode-整数反转/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/09/28/Leetcode-字符串相乘/"/>
 
 
 
@@ -142,7 +139,7 @@
   };
 </script>
 
-  <title>Leetcode:整数反转 | My Blog</title>
+  <title>Leetcode:字符串相乘 | My Blog</title>
   
 
 
@@ -291,7 +288,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/25/Leetcode-整数反转/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/28/Leetcode-字符串相乘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +305,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:整数反转
+          <h1 class="post-title" itemprop="name headline">Leetcode:字符串相乘
               
             
           </h1>
@@ -333,7 +330,7 @@
                 
               
 
-              <time title="创建时间：2019-09-25 23:28:26 / 修改时间：23:32:35" itemprop="dateCreated datePublished" datetime="2019-09-25T23:28:26+08:00">2019-09-25</time>
+              <time title="创建时间：2019-09-28 22:28:05 / 修改时间：22:40:20" itemprop="dateCreated datePublished" datetime="2019-09-28T22:28:05+08:00">2019-09-28</time>
             
 
             
@@ -371,9 +368,9 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/40.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>溢出判断:MAX_VALUE : 2147483647 MIN_VALUE : -2147483648 他要判断最后一位不要大于7和不要小于8,除10取余得到每一位，再乘回去得到反转的数</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> rev=<span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (x != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> pop = x % <span class="number">10</span>;</div><div class="line">            x /= <span class="number">10</span>;</div><div class="line">            <span class="keyword">if</span> (rev &gt; INT_MAX/<span class="number">10</span> || (rev == INT_MAX / <span class="number">10</span> &amp;&amp; pop &gt; <span class="number">7</span>)) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            <span class="keyword">if</span> (rev &lt; INT_MIN/<span class="number">10</span> || (rev == INT_MIN / <span class="number">10</span> &amp;&amp; pop &lt; <span class="number">-8</span>)) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            rev = rev * <span class="number">10</span> + pop;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> rev;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/43.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>竖式模拟，通过两数相乘时，乘数某位与被乘数某位相乘，与产生结果的位置的规律来完成。具体规律如下：<br>乘数 num1 位数为 M，被乘数 num2 位数为 N, num1 x num2 结果 res 最大总位数为 M+N，<br>num1[i] x num2[j] 的结果为 tmp，其第一位位于 res[i+j],第二位位于res[i+j+1]；<br>通过两个循环遍历相乘，通过移位对应好位置，最后将结果转成字符串输出</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">multiply</span><span class="params">(self, num1: str, num2: str)</span> -&gt; str:</span></div><div class="line">       </div><div class="line">        <span class="keyword">if</span> num1==<span class="string">"0"</span> <span class="keyword">or</span> num2==<span class="string">"0"</span>:</div><div class="line">            <span class="keyword">return</span> <span class="string">"0"</span></div><div class="line">      </div><div class="line">        res=[<span class="number">0</span>]*(len(num1)+len(num2))</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num1)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</div><div class="line">            n1 = int(num1[i])</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(num2)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</div><div class="line">                n2 = int(num2[j])</div><div class="line">                sum = (res[i + j + <span class="number">1</span>] + n1 * n2)</div><div class="line">                res[i + j + <span class="number">1</span>] = sum % <span class="number">10</span></div><div class="line">                res[i + j] += sum // <span class="number">10</span></div><div class="line"></div><div class="line">        result = <span class="string">''</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(res)):</div><div class="line">            <span class="keyword">if</span> i == <span class="number">0</span> <span class="keyword">and</span> res[i] == <span class="number">0</span>:</div><div class="line">                <span class="keyword">continue</span></div><div class="line">            result+=(str(res[i]))</div><div class="line">       </div><div class="line">        <span class="keyword">return</span> result</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -406,8 +403,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/24/Leetcode-删除链表中的节点/" rel="next" title="Leetcode:删除链表中的节点">
-                <i class="fa fa-chevron-left"></i> Leetcode:删除链表中的节点
+              <a href="/2019/09/27/Leetcode-回文数/" rel="next" title="Leetcode:回文数">
+                <i class="fa fa-chevron-left"></i> Leetcode:回文数
               </a>
             
           </div>
@@ -415,10 +412,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/27/Leetcode-字符串转换整数/" rel="prev" title="Leetcode:字符串转换整数">
-                Leetcode:字符串转换整数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
