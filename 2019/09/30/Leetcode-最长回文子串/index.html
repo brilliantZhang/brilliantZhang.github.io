@@ -109,30 +109,30 @@
 
 
   <meta name="description" content="题目描述
-解题思路根据二叉搜索树的特点，当根节点大于等于p或q作为左孩子，且小于等于p或q作为右孩子，满足根节点是最近公共祖先，不满足条件时，递归地进行搜索
-代码12345678910111213141516171819202122232425# Definition for a binary tree node.# class TreeNode:#     def __init__(self,">
+解题思路从最左边到当前字符依次判断是否是回文串:如果当前字符和左边字符相等，即s[i] == s[j]，则判断去掉头尾的字符是否是回文串，如果两个字符相邻或前一个状态dp[j+1][i-1] = true，则是回文串，然后判断是否最长。如果不相等，则不是回文串。
+代码123456789101112131415161718192021222324252627class Solution:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Leetcode:二叉搜索树的最近公共祖先">
-<meta property="og:url" content="brilliantZhang.github.io/2019/08/20/Leetcode-二叉搜索树的最近公共祖先/index.html">
+<meta property="og:title" content="Leetcode:最长回文子串">
+<meta property="og:url" content="brilliantZhang.github.io/2019/09/30/Leetcode-最长回文子串/index.html">
 <meta property="og:site_name" content="My Blog">
 <meta property="og:description" content="题目描述
-解题思路根据二叉搜索树的特点，当根节点大于等于p或q作为左孩子，且小于等于p或q作为右孩子，满足根节点是最近公共祖先，不满足条件时，递归地进行搜索
-代码12345678910111213141516171819202122232425# Definition for a binary tree node.# class TreeNode:#     def __init__(self,">
-<meta property="og:image" content="brilliantZhang.github.io/Leetcode/14.PNG">
-<meta property="og:updated_time" content="2019-08-20T02:38:52.107Z">
+解题思路从最左边到当前字符依次判断是否是回文串:如果当前字符和左边字符相等，即s[i] == s[j]，则判断去掉头尾的字符是否是回文串，如果两个字符相邻或前一个状态dp[j+1][i-1] = true，则是回文串，然后判断是否最长。如果不相等，则不是回文串。
+代码123456789101112131415161718192021222324252627class Solution:">
+<meta property="og:image" content="brilliantZhang.github.io/Leetcode/45.PNG">
+<meta property="og:updated_time" content="2019-09-30T14:09:13.661Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Leetcode:二叉搜索树的最近公共祖先">
+<meta name="twitter:title" content="Leetcode:最长回文子串">
 <meta name="twitter:description" content="题目描述
-解题思路根据二叉搜索树的特点，当根节点大于等于p或q作为左孩子，且小于等于p或q作为右孩子，满足根节点是最近公共祖先，不满足条件时，递归地进行搜索
-代码12345678910111213141516171819202122232425# Definition for a binary tree node.# class TreeNode:#     def __init__(self,">
-<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/14.PNG">
+解题思路从最左边到当前字符依次判断是否是回文串:如果当前字符和左边字符相等，即s[i] == s[j]，则判断去掉头尾的字符是否是回文串，如果两个字符相邻或前一个状态dp[j+1][i-1] = true，则是回文串，然后判断是否最长。如果不相等，则不是回文串。
+代码123456789101112131415161718192021222324252627class Solution:">
+<meta name="twitter:image" content="brilliantZhang.github.io/Leetcode/45.PNG">
 
 
 
 
 
 
-  <link rel="canonical" href="brilliantZhang.github.io/2019/08/20/Leetcode-二叉搜索树的最近公共祖先/"/>
+  <link rel="canonical" href="brilliantZhang.github.io/2019/09/30/Leetcode-最长回文子串/"/>
 
 
 
@@ -142,7 +142,7 @@
   };
 </script>
 
-  <title>Leetcode:二叉搜索树的最近公共祖先 | My Blog</title>
+  <title>Leetcode:最长回文子串 | My Blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/08/20/Leetcode-二叉搜索树的最近公共祖先/">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2019/09/30/Leetcode-最长回文子串/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="brilliantZhang">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Leetcode:二叉搜索树的最近公共祖先
+          <h1 class="post-title" itemprop="name headline">Leetcode:最长回文子串
               
             
           </h1>
@@ -333,7 +333,7 @@
                 
               
 
-              <time title="创建时间：2019-08-20 10:21:15 / 修改时间：10:38:52" itemprop="dateCreated datePublished" datetime="2019-08-20T10:21:15+08:00">2019-08-20</time>
+              <time title="创建时间：2019-09-30 22:06:14 / 修改时间：22:09:13" itemprop="dateCreated datePublished" datetime="2019-09-30T22:06:14+08:00">2019-09-30</time>
             
 
             
@@ -371,9 +371,9 @@
       
 
       
-        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/14.PNG" alt=""></p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>根据二叉搜索树的特点，当根节点大于等于p或q作为左孩子，且小于等于p或q作为右孩子，满足根节点是最近公共祖先，不满足条件时，递归地进行搜索</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Definition for a binary tree node.</span></div><div class="line"><span class="comment"># class TreeNode:</span></div><div class="line"><span class="comment">#     def __init__(self, x):</span></div><div class="line"><span class="comment">#         self.val = x</span></div><div class="line"><span class="comment">#         self.left = None</span></div><div class="line"><span class="comment">#         self.right = None</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span><span class="params">(self, root, p, q)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type root: TreeNode</div><div class="line">        :type p: TreeNode</div><div class="line">        :type q: TreeNode</div><div class="line">        :rtype: TreeNode</div><div class="line">        """</div><div class="line">        parent_val = root.val</div><div class="line">        p_val = p.val</div><div class="line">        q_val = q.val</div><div class="line"></div><div class="line">        <span class="keyword">if</span> p_val &gt; parent_val <span class="keyword">and</span> q_val &gt; parent_val:    </div><div class="line">            <span class="keyword">return</span> self.lowestCommonAncestor(root.right, p, q)</div><div class="line">        <span class="keyword">elif</span> p_val &lt; parent_val <span class="keyword">and</span> q_val &lt; parent_val:    </div><div class="line">            <span class="keyword">return</span> self.lowestCommonAncestor(root.left, p, q)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> root</div></pre></td></tr></table></figure>
+        <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><img src="/Leetcode/45.PNG" alt=""></p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>从最左边到当前字符依次判断是否是回文串:<br>如果当前字符和左边字符相等，即s[i] == s[j]，则判断去掉头尾的字符是否是回文串，<br>如果两个字符相邻或前一个状态dp[j+1][i-1] = true，则是回文串，然后判断是否最长。<br>如果不相等，则不是回文串。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span><span class="params">(self, s: str)</span> -&gt; str:</span></div><div class="line">        size = len(s)</div><div class="line">        <span class="keyword">if</span> (size &lt; <span class="number">2</span>):</div><div class="line">            <span class="keyword">return</span> s</div><div class="line">        dp=[]</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(size):</div><div class="line">            tmp=[]</div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(size):</div><div class="line">                tmp.append(<span class="keyword">False</span>)</div><div class="line">            dp.append(tmp)</div><div class="line">        </div><div class="line">        maxLen = <span class="number">1</span></div><div class="line">        start = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(size):<span class="comment">#右边界</span></div><div class="line">            dp[i][i] = <span class="keyword">True</span> </div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i): <span class="comment">#左边界</span></div><div class="line">                <span class="comment">#当前字符和左边字符相等，判断去掉头尾的字符是否是回文串</span></div><div class="line">                <span class="keyword">if</span> (s[i] == s[j] <span class="keyword">and</span> (i - j == <span class="number">1</span> <span class="keyword">or</span> dp[j+<span class="number">1</span>][i<span class="number">-1</span>])):</div><div class="line">                    dp[j][i] = <span class="keyword">True</span></div><div class="line">                    <span class="keyword">if</span> (i - j + <span class="number">1</span> &gt; maxLen):</div><div class="line">                        maxLen = i - j + <span class="number">1</span></div><div class="line">                        start = j</div><div class="line">                <span class="keyword">else</span>:</div><div class="line">                        dp[j][i] = <span class="keyword">False</span></div><div class="line">                   </div><div class="line">        <span class="keyword">return</span> s[start: start+maxLen]</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -407,8 +407,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/16/Leetcode-二叉搜索树中第K小的元素/" rel="next" title="Leetcode:二叉搜索树中第K小的元素">
-                <i class="fa fa-chevron-left"></i> Leetcode:二叉搜索树中第K小的元素
+              <a href="/2019/09/29/Leetcode-反转字符串/" rel="next" title="Leetcode:反转字符串">
+                <i class="fa fa-chevron-left"></i> Leetcode:反转字符串
               </a>
             
           </div>
@@ -417,8 +417,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/21/Leetcode-二叉树的最近公共祖先/" rel="prev" title="Leetcode:二叉树的最近公共祖先">
-                Leetcode:二叉树的最近公共祖先 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/30/Leetcode-最长公共前缀/" rel="prev" title="Leetcode:最长公共前缀">
+                Leetcode:最长公共前缀 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
