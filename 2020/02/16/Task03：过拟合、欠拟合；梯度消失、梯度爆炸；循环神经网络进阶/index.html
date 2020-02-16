@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="过拟合、欠拟合相关概念
+训练误差（training error）：模型在训练数据集上表现出的误差泛化误差（generalization error）。模型在任意一个测试数据样本上表现出的误差的期望，并常常通过测试数据集上的误差来近似。机器学习模型应关注降低泛化误差。
+
+权重衰减权重衰减等价于L2范数正则化（regularization）。正则化通过为模型损失函数添加惩罚项使学出的模型参数值较小，是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶">
+<meta property="og:url" content="brilliantZhang.github.io/2020/02/16/Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="过拟合、欠拟合相关概念
+训练误差（training error）：模型在训练数据集上表现出的误差泛化误差（generalization error）。模型在任意一个测试数据样本上表现出的误差的期望，并常常通过测试数据集上的误差来近似。机器学习模型应关注降低泛化误差。
+
+权重衰减权重衰减等价于L2范数正则化（regularization）。正则化通过为模型损失函数添加惩罚项使学出的模型参数值较小，是">
+<meta property="og:image" content="brilliantZhang.github.io/pytorch/2.jpg">
+<meta property="og:image" content="brilliantZhang.github.io/pytorch/1.jpg">
+<meta property="og:updated_time" content="2020-02-16T09:38:59.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶">
+<meta name="twitter:description" content="过拟合、欠拟合相关概念
+训练误差（training error）：模型在训练数据集上表现出的误差泛化误差（generalization error）。模型在任意一个测试数据样本上表现出的误差的期望，并常常通过测试数据集上的误差来近似。机器学习模型应关注降低泛化误差。
+
+权重衰减权重衰减等价于L2范数正则化（regularization）。正则化通过为模型损失函数添加惩罚项使学出的模型参数值较小，是">
+<meta name="twitter:image" content="brilliantZhang.github.io/pytorch/2.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="brilliantZhang.github.io/2020/02/16/Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">So we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2020/02/16/Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Task03：过拟合、欠拟合；梯度消失、梯度爆炸；循环神经网络进阶
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-16 16:40:24 / 修改时间：17:38:59" itemprop="dateCreated datePublished" datetime="2020-02-16T16:40:24+08:00">2020-02-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="过拟合、欠拟合"><a href="#过拟合、欠拟合" class="headerlink" title="过拟合、欠拟合"></a>过拟合、欠拟合</h1><h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><blockquote>
+<p>训练误差（training error）：模型在训练数据集上表现出的误差<br>泛化误差（generalization error）。模型在任意一个测试数据样本上表现出的误差的期望，并常常通过测试数据集上的误差来近似。<br>机器学习模型应关注降低泛化误差。</p>
+</blockquote>
+<h2 id="权重衰减"><a href="#权重衰减" class="headerlink" title="权重衰减"></a>权重衰减</h2><p>权重衰减等价于L2范数正则化（regularization）。正则化通过为模型损失函数添加惩罚项使学出的模型参数值较小，是应对过拟合的常用手段。<br>权重衰减通过惩罚绝对值较大的模型参数为需要学习的模型增加了限制，这可能对过拟合有效。<br>pytorch简洁实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">torch.optim.SGD(params=[net.weight], lr=lr, weight_decay=wd) <span class="comment"># 对权重参数衰减</span></div></pre></td></tr></table></figure></p>
+<h2 id="丢弃法"><a href="#丢弃法" class="headerlink" title="丢弃法"></a>丢弃法</h2><p>对该隐藏层使用丢弃法时，该层的隐藏单元将有一定概率被丢弃掉。设丢弃概率为p，那么有p的概率隐藏单元hi会被清零，有1-p的概率隐藏单元hi会除以1-p做拉伸。丢弃概率是丢弃法的超参数。<br>pytorch简洁实现<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">net = nn.Sequential(</div><div class="line">        d2l.FlattenLayer(),</div><div class="line">        nn.Linear(num_inputs, num_hiddens1),</div><div class="line">        nn.ReLU(),</div><div class="line">        nn.Dropout(drop_prob1),</div><div class="line">        nn.Linear(num_hiddens1, num_hiddens2), </div><div class="line">        nn.ReLU(),</div><div class="line">        nn.Dropout(drop_prob2),</div><div class="line">        nn.Linear(num_hiddens2, <span class="number">10</span>)</div><div class="line">        )</div></pre></td></tr></table></figure></p>
+<h1 id="梯度消失、梯度爆炸"><a href="#梯度消失、梯度爆炸" class="headerlink" title="梯度消失、梯度爆炸"></a>梯度消失、梯度爆炸</h1><h2 id="相关概念-1"><a href="#相关概念-1" class="headerlink" title="相关概念"></a>相关概念</h2><p>深度模型有关数值稳定性的典型问题是消失（vanishing）和爆炸（explosion）。<br>当神经网络的层数较多时，模型的数值稳定性容易变差。<br>通常需要随机初始化模型参数。如果将每个隐藏单元的参数都初始化为相等的值，那么在正向传播时每个隐藏单元将根据相同的输入计算出相同的值，并传递至输出层。在反向传播中，每个隐藏单元的参数梯度值相等。因此，这些参数在使用基于梯度的优化算法迭代后值依然相等。之后的迭代也是如此。在这种情况下，无论隐藏单元有多少，隐藏层本质上只有1个隐藏单元在发挥作用。因此通常将神经网络的模型参数，特别是权重参数，进行随机初始化。</p>
+<h2 id="协变量偏移"><a href="#协变量偏移" class="headerlink" title="协变量偏移"></a>协变量偏移</h2><p>输入的分布可能随时间而改变，但是标记函数，即条件分布P（y∣x）不会改变。虽然这个问题容易理解，但在实践中也容易忽视。区分猫和狗的一个例子。我们的训练数据使用的是猫和狗的真实的照片，但是在测试时，我们被要求对猫和狗的卡通图片进行分类。<br>统计学家称这种协变量变化是因为问题的根源在于特征分布的变化（即协变量的变化）。数学上，我们可以说P（x）改变了，但P（y∣x）保持不变。</p>
+<h2 id="标签偏移"><a href="#标签偏移" class="headerlink" title="标签偏移"></a>标签偏移</h2><p>当我们认为导致偏移的是标签P（y）上的边缘分布的变化，但类条件分布是不变的P（x∣y）。标签偏移可以简单理解为测试时出现了训练时没有的标签。<br>如训练数据集，数据很少只包含流感p(y)的样本。而测试数据集有流感p(y)和流感q(y)，其中不变的是流感症状p(x|y)。</p>
+<h2 id="概念偏移"><a href="#概念偏移" class="headerlink" title="概念偏移"></a>概念偏移</h2><p>即标签本身的定义发生变化的情况。即使是个简单术语的定义也会发生相当大的概念转变。分布P（y∣x）可能因我们的位置而异。这个问题很难发现。另一个可取之处是P（y∣x）通常只是逐渐变化。</p>
+<h1 id="循环神经网络进阶"><a href="#循环神经网络进阶" class="headerlink" title="循环神经网络进阶"></a>循环神经网络进阶</h1><h2 id="GRU"><a href="#GRU" class="headerlink" title="GRU"></a>GRU</h2><blockquote>
+<p>RNN存在的问题：梯度较容易出现衰减或爆炸（BPTT）<br>⻔控循环神经⽹络：捕捉时间序列中时间步距离较⼤的依赖关系<br>• 重置⻔有助于捕捉时间序列⾥短期的依赖关系；<br>• 更新⻔有助于捕捉时间序列⾥⻓期的依赖关系。<br>相比LSTM，使用GRU能够达到相当的效果，并且相比之下更容易进行训练，能够很大程度上提高训练效率，因此很多时候会更倾向于使用GRU。</p>
+</blockquote>
+<p><img src="/pytorch/2.jpg" alt=""><br>得到ht这一步的操作就是忘记传递下来的ht-1 中的某些维度信息，并加入当前节点输入的某些维度信息。<br>GRU使用了同一个门控z 就同时可以进行遗忘和选择记忆（LSTM则要使用多个门控）。<br>遗忘z 和选择1-z 是联动的。对于传递进来的维度信息，会进行选择性遗忘，则遗忘了多少权重 （z），我们就会使用包含当前输入的中所对应的权重进行弥补1-z 。以保持一种”恒定“状态。</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><blockquote>
+<p>长短期记忆long short-term memory :<br>遗忘门:控制上一时间步的记忆细胞<br>输入门:控制当前时间步的输入<br>输出门:控制从记忆细胞到隐藏状态<br>记忆细胞：⼀种特殊的隐藏状态的信息的流动</p>
+</blockquote>
+<p><img src="/pytorch/1.jpg" alt=""><br>相比RNN只有一个传递状态ht ，LSTM有两个传输状态，一个ct（cell state），和一个ht（hidden state）。<br>其中对于传递下去的ct改变得很慢，通常输出的ct是上一个状态传过来的ct-1加上一些数值。<br>LSTM内部主要有三个阶段：</p>
+<ol>
+<li>忘记阶段<br>这个阶段主要是对上一个节点传进来的输入进行选择性忘记。具体来说是通过计算得到的zf（f表示forget）来作为忘记门控，来控制上一个状态哪些需要留哪些需要忘。</li>
+<li>选择记忆阶段<br>这个阶段将这个阶段的输入有选择性地进行“记忆”。主要是会对输入进行选择记忆。哪些重要则着重记录下来，哪些不重要，则少记一些。而选择的门控信号则是由zi（i代表information）来进行控制。</li>
+<li>输出阶段<br>这个阶段将决定哪些将会被当成当前状态的输出。主要是通过zo 来进行控制的。</li>
+</ol>
+<h2 id="RNN参数设置"><a href="#RNN参数设置" class="headerlink" title="RNN参数设置"></a>RNN参数设置</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#深度循环神经网络：</span></div><div class="line">nn.LSTM(input_size=vocab_size, hidden_size=num_hiddens,num_layers=<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="comment">#双向循环神经网络</span></div><div class="line">nn.GRU(input_size=vocab_size, hidden_size=num_hiddens,bidirectional=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/pytorch学习/" rel="tag"># pytorch学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/14/Task02：文本预处理；语言模型；循环神经网络基础/" rel="next" title="Task02：文本预处理；语言模型；循环神经网络基础">
+                <i class="fa fa-chevron-left"></i> Task02：文本预处理；语言模型；循环神经网络基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">brilliantZhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#过拟合、欠拟合"><span class="nav-number">1.</span> <span class="nav-text">过拟合、欠拟合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关概念"><span class="nav-number">1.1.</span> <span class="nav-text">相关概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权重衰减"><span class="nav-number">1.2.</span> <span class="nav-text">权重衰减</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丢弃法"><span class="nav-number">1.3.</span> <span class="nav-text">丢弃法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度消失、梯度爆炸"><span class="nav-number">2.</span> <span class="nav-text">梯度消失、梯度爆炸</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相关概念-1"><span class="nav-number">2.1.</span> <span class="nav-text">相关概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协变量偏移"><span class="nav-number">2.2.</span> <span class="nav-text">协变量偏移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签偏移"><span class="nav-number">2.3.</span> <span class="nav-text">标签偏移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概念偏移"><span class="nav-number">2.4.</span> <span class="nav-text">概念偏移</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环神经网络进阶"><span class="nav-number">3.</span> <span class="nav-text">循环神经网络进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GRU"><span class="nav-number">3.1.</span> <span class="nav-text">GRU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">3.2.</span> <span class="nav-text">LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN参数设置"><span class="nav-number">3.3.</span> <span class="nav-text">RNN参数设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brilliantZhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
