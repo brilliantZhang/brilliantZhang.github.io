@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="动机高阶特征对于CTR问题非常重要，但有些组合特征隐藏在数据中，即使有领域知识也很难提取，为了高效提取高阶特征，借鉴了Google的wide &amp;amp; deep的做法，同时结合了FM来做特征提取。
+DeepFM改进FNN和PNN都有对于低阶的组合特征，学习到的比较少的缺点；Google提出的Wide&amp;amp;Deep模型可以同时学习低阶和高阶组合特征。它混合了一个线性模型（Wide part）和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepFM">
+<meta property="og:url" content="brilliantZhang.github.io/2021/05/24/DeepFM/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="动机高阶特征对于CTR问题非常重要，但有些组合特征隐藏在数据中，即使有领域知识也很难提取，为了高效提取高阶特征，借鉴了Google的wide &amp;amp; deep的做法，同时结合了FM来做特征提取。
+DeepFM改进FNN和PNN都有对于低阶的组合特征，学习到的比较少的缺点；Google提出的Wide&amp;amp;Deep模型可以同时学习低阶和高阶组合特征。它混合了一个线性模型（Wide part）和">
+<meta property="og:image" content="brilliantZhang.github.io/deepfm/1.jpg">
+<meta property="og:image" content="brilliantZhang.github.io/deepfm/2.png">
+<meta property="og:image" content="brilliantZhang.github.io/deepfm/3.png">
+<meta property="og:image" content="brilliantZhang.github.io/deepfm/4.jpg">
+<meta property="og:updated_time" content="2021-05-25T11:54:31.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DeepFM">
+<meta name="twitter:description" content="动机高阶特征对于CTR问题非常重要，但有些组合特征隐藏在数据中，即使有领域知识也很难提取，为了高效提取高阶特征，借鉴了Google的wide &amp;amp; deep的做法，同时结合了FM来做特征提取。
+DeepFM改进FNN和PNN都有对于低阶的组合特征，学习到的比较少的缺点；Google提出的Wide&amp;amp;Deep模型可以同时学习低阶和高阶组合特征。它混合了一个线性模型（Wide part）和">
+<meta name="twitter:image" content="brilliantZhang.github.io/deepfm/1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="brilliantZhang.github.io/2021/05/24/DeepFM/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>DeepFM | My Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">So we beat on, boats against the current, borne back ceaselessly into the past.</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="brilliantZhang.github.io/2021/05/24/DeepFM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="brilliantZhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DeepFM
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-05-24 13:37:07" itemprop="dateCreated datePublished" datetime="2021-05-24T13:37:07+08:00">2021-05-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-05-25 19:54:31" itemprop="dateModified" datetime="2021-05-25T19:54:31+08:00">2021-05-25</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><p>高阶特征对于CTR问题非常重要，但有些组合特征隐藏在数据中，即使有领域知识也很难提取，为了高效提取高阶特征，借鉴了Google的wide &amp; deep的做法，同时结合了FM来做特征提取。</p>
+<h1 id="DeepFM改进"><a href="#DeepFM改进" class="headerlink" title="DeepFM改进"></a>DeepFM改进</h1><p>FNN和PNN都有对于低阶的组合特征，学习到的比较少的缺点；Google提出的Wide&amp;Deep模型可以同时学习低阶和高阶组合特征。它混合了一个线性模型（Wide part）和Deep模型(Deep part)。这两部分模型需要不同的输入，而Wide part部分的输入，依旧依赖人工特征工程。</p>
+<p>DeepFM在Wide&amp;Deep的基础上进行改进，成功解决了这两个问题，并做了一些改进，其优点如下：</p>
+<ol>
+<li>不需要预训练FM得到隐向量</li>
+<li>不需要人工特征工程</li>
+<li>能同时学习低阶和高阶的组合特征</li>
+<li>FM模块和Deep模块共享Feature Embedding部分，可以更快的训练，以及更精确的训练学习</li>
+</ol>
+<h1 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h1><p>FM Component + Deep Component。FM提取低阶组合特征，Deep提取高阶组合特征。但是和Wide&amp;Deep不同的是，DeepFM是端到端的训练，不需要人工特征工程。</p>
+<p>共享feature embedding。FM和Deep共享输入和feature embedding不但使得训练更快，而且使得训练更加准确。相比之下，Wide&amp;Deep中，input vector非常大，里面包含了大量的人工设计的pairwise组合特征，增加了他的计算复杂度。<br><img src="/deepfm/1.jpg" alt=""></p>
+<h2 id="FM-Component"><a href="#FM-Component" class="headerlink" title="FM Component"></a>FM Component</h2><p><img src="/deepfm/2.png" alt=""><br>FM部分的输出由两部分组成：一个 Addition Unit，多个 内积单元。Addition Unit 反映的是1阶的特征。内积单元反映的是2阶的组合特征，实际中的实现是采用FM化简之后的内积公式，最终的维度是：<code>field_size + embedding_size</code></p>
+<p>需要训练的有两部分：input_vector和Addition Unit相连的全连接层，也就是1阶的Embedding矩阵；Sparse Feature到Dense Embedding的Embedding矩阵，中间也是全连接的，要训练的是中间的权重矩阵，这个权重矩阵也就是隐向量V。</p>
+<h2 id="Deep-Component"><a href="#Deep-Component" class="headerlink" title="Deep Component"></a>Deep Component</h2><p><img src="/deepfm/3.png" alt=""><br>Deep Component是用来学习高阶组合特征的。网络里面黑色的线是全连接层。</p>
+<p>FM模块和Deep模块是共享feature embedding的。模型可以从最原始的特征中，同时学习低阶和高阶组合特征；不再需要人工特征工程。Wide&amp;Deep中低阶组合特征是通过特征工程得到的。</p>
+<h1 id="模型结构对比"><a href="#模型结构对比" class="headerlink" title="模型结构对比"></a>模型结构对比</h1><p><img src="/deepfm/4.jpg" alt=""><br>FNN使用预训练的FM来初始化DNN，后只有Deep部分，不能学习低阶组合特征。Embedding的参数受FM的影响，不一定准确；预训练阶段增加了计算复杂度，训练效率低；FNN只能学习到高阶的组合特征。模型中没有对低阶特征建模。</p>
+<p>PNN为了捕获高阶特征。PNN在第一个隐藏层和embedding层之间，增加了一个product layer。product layer的输出需要与第一个隐藏层全连接，导致计算复杂度居高不下；和FNN一样，只能学习到高阶的特征组合。没有对于1阶和2阶特征进行建模。</p>
+<p>Wide &amp; Deep设计的初衷是想同时学习低阶和高阶组合特征，但是Wide部分需要领域知识进行特征工程。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Recommender-Systems/" rel="tag"># Recommender Systems</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/20/WideAndDeep/" rel="next" title="WideAndDeep">
+                <i class="fa fa-chevron-left"></i> WideAndDeep
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">brilliantZhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动机"><span class="nav-number">1.</span> <span class="nav-text">动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DeepFM改进"><span class="nav-number">2.</span> <span class="nav-text">DeepFM改进</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型架构"><span class="nav-number">3.</span> <span class="nav-text">模型架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FM-Component"><span class="nav-number">3.1.</span> <span class="nav-text">FM Component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deep-Component"><span class="nav-number">3.2.</span> <span class="nav-text">Deep Component</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型结构对比"><span class="nav-number">4.</span> <span class="nav-text">模型结构对比</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">brilliantZhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.2.2</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
